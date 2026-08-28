@@ -6,7 +6,7 @@ header('Cache-Control: no-store');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['error' => 'Metodo nao permitido.']);
+    echo json_encode(['error' => 'Método não permitido.']);
     exit;
 }
 
@@ -18,7 +18,7 @@ if (is_file($configPath)) {
 $apiKey = getenv('GEMINI_API_KEY') ?: (defined('GEMINI_API_KEY') ? GEMINI_API_KEY : '');
 if (!$apiKey) {
     http_response_code(500);
-    echo json_encode(['error' => 'A chave Gemini ainda nao foi configurada no servidor.']);
+    echo json_encode(['error' => 'A chave Gemini ainda não foi configurada no servidor.']);
     exit;
 }
 
@@ -41,13 +41,13 @@ if ($message === '') {
 }
 
 $prompts = [
-    'cobranca' => 'Voce e o Assistente DDM em uma demonstracao comercial de agente de cobranca com IA. Conduza uma conversa educada, objetiva e consultiva sobre negociacao, acordos e recuperacao de credito. Nao solicite CPF, numero de contrato, cartao, senha, dados bancarios ou dados sensiveis. Explique capacidades do DDM Call IA quando fizer sentido. Se o usuario quiser um caso real, direcione para falar com especialista.',
-    'qualificacao' => 'Voce e o Assistente DDM em uma demonstracao comercial de qualificacao de leads. Faca perguntas curtas para entender empresa, segmento, volume de contatos, canais atuais, urgencia e objetivo. Sugira produtos DDM adequados: DDM Call IA, Call IA WhatsApp, Omni CRM, Mail IA, QualiDDM, Dashboard Creator, Creator e Extrator de Leads. Nao invente precos ou promessas contratuais.',
-    'atendimento' => 'Voce e o Assistente DDM em uma demonstracao comercial de atendimento com IA. Explique produtos e casos de uso do ecossistema DDM de forma clara, profissional e objetiva. Ajude o visitante a entender qual solucao faz sentido para atendimento, voz, chat, automacao, qualidade, dados e operacao.',
+    'cobranca' => 'Você é o Assistente DDM em uma demonstração comercial de agente de cobrança com IA. Conduza uma conversa educada, objetiva e consultiva sobre negociação, acordos e recuperação de crédito. Não solicite CPF, número de contrato, cartão, senha, dados bancários ou dados sensíveis. Explique capacidades do DDM Call IA quando fizer sentido. Se o usuário quiser um caso real, direcione para falar com especialista.',
+    'qualificacao' => 'Você é o Assistente DDM em uma demonstração comercial de qualificação de leads. Faça perguntas curtas para entender empresa, segmento, volume de contatos, canais atuais, urgência e objetivo. Sugira produtos DDM adequados: DDM Call IA, Call IA WhatsApp, Omni CRM, Mail IA, QualiDDM, Dashboard Creator, Creator e Extrator de Leads. Não invente preços ou promessas contratuais.',
+    'atendimento' => 'Você é o Assistente DDM em uma demonstração comercial de atendimento com IA. Explique produtos e casos de uso do ecossistema DDM de forma clara, profissional e objetiva. Ajude o visitante a entender qual solução faz sentido para atendimento, voz, chat, automação, qualidade, dados e operação.',
 ];
 
 $systemInstruction = ($prompts[$scenario] ?? $prompts['atendimento'])
-    . ' Responda sempre em portugues do Brasil, com no maximo 900 caracteres, tom premium, humano e comercial. Seja direto. Nunca diga que e Gemini, Google ou modelo de linguagem.';
+    . ' Responda sempre em português do Brasil, com no máximo 900 caracteres, tom premium, humano e comercial. Seja direto. Nunca diga que é Gemini, Google ou modelo de linguagem.';
 
 $contents = [];
 foreach (array_slice($history, -8) as $item) {
@@ -104,7 +104,7 @@ curl_close($ch);
 
 if ($response === false || $curlError) {
     http_response_code(502);
-    echo json_encode(['error' => 'Nao foi possivel conectar ao assistente agora.']);
+    echo json_encode(['error' => 'Não foi possível conectar ao assistente agora.']);
     exit;
 }
 
@@ -113,7 +113,7 @@ $text = trim((string)($data['candidates'][0]['content']['parts'][0]['text'] ?? '
 
 if ($status >= 400 || $text === '') {
     http_response_code(502);
-    echo json_encode(['error' => 'O assistente nao conseguiu responder agora.']);
+    echo json_encode(['error' => 'O assistente não conseguiu responder agora.']);
     exit;
 }
 

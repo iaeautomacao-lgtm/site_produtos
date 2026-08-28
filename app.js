@@ -12,19 +12,19 @@ const CONFIG = {
 
 const transcriptSets = {
   cobranca: [
-    ["ai", "Ola, eu sou a Sofia da DDM. Posso te ajudar a encontrar uma opcao de acordo hoje?"],
+    ["ai", "Olá, eu sou a Sofia da DDM. Posso te ajudar a encontrar uma opção de acordo hoje?"],
     ["user", "Sim, quero entender as possibilidades de pagamento."],
-    ["ai", "Perfeito. Vou validar o contexto, apresentar as condicoes disponiveis e registrar o desfecho para a operacao."]
+    ["ai", "Perfeito. Vou validar o contexto, apresentar as condições disponíveis e registrar o desfecho para a operação."]
   ],
   qualificacao: [
-    ["ai", "Ola. Vou fazer algumas perguntas rapidas para entender o perfil da sua empresa."],
-    ["user", "Temos uma operacao com alto volume de atendimento."],
-    ["ai", "Entendi. O melhor caminho e avaliar volume, canais atuais e pontos de automacao com maior retorno."]
+    ["ai", "Olá. Vou fazer algumas perguntas rápidas para entender o perfil da sua empresa."],
+    ["user", "Temos uma operação com alto volume de atendimento."],
+    ["ai", "Entendi. O melhor caminho é avaliar volume, canais atuais e pontos de automação com maior retorno."]
   ],
   atendimento: [
-    ["ai", "Atendimento DDM. Me conte o que voce precisa resolver."],
+    ["ai", "Atendimento DDM. Me conte o que você precisa resolver."],
     ["user", "Quero acompanhar uma solicitacao em aberto."],
-    ["ai", "Posso consultar o status, explicar a proxima etapa e direcionar para um especialista se necessario."]
+    ["ai", "Posso consultar o status, explicar a próxima etapa e direcionar para um especialista se necessário."]
   ]
 };
 
@@ -37,7 +37,7 @@ let durationTimer = null;
 let callStartedAt = null;
 let chatScenario = "cobranca";
 let chatHistory = [
-  { role: "model", text: "Ola. Sou o assistente virtual da DDM. Posso demonstrar como nossas solucoes de IA atuam em voz, atendimento, cobranca e automacao." }
+  { role: "model", text: "Olá. Sou o assistente virtual da DDM. Posso demonstrar como nossas soluções de IA atuam em voz, atendimento, cobrança e automação." }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -92,7 +92,7 @@ function setIntegrationMode() {
   const configured = hasVapiConfig();
   $("#voiceMode").innerHTML = configured ? "<i></i> agente ao vivo" : "<i></i> agente DDM";
   $("#integrationNote").textContent = configured
-    ? "A chamada sera conduzida pelo agente DDM do cenario selecionado."
+    ? "A chamada será conduzida pelo agente DDM do cenário selecionado."
     : "Experimente a jornada de voz e veja como ela pode se adaptar ao seu processo.";
 }
 
@@ -111,7 +111,7 @@ function addLine(role, text) {
   message.className = `message ${isAi ? "message-ai" : "message-user"}`;
   message.innerHTML = `
     <div class="message-meta">
-      <span>${isAi ? "DDM AI" : "VOCE"}</span>
+      <span>${isAi ? "DDM AI" : "VOCÊ"}</span>
       <time>${time}</time>
     </div>
     <p></p>
@@ -129,12 +129,12 @@ function resetTranscript() {
         <span></span>
         <span></span>
       </div>
-      <h4>A conversa aparecera aqui</h4>
-      <p>Inicie a demonstracao para acompanhar a transcricao da chamada em tempo real.</p>
+      <h4>A conversa aparecerá aqui</h4>
+      <p>Inicie a demonstração para acompanhar a transcrição da chamada em tempo real.</p>
       <div class="empty-features">
         <span>Voz em tempo real</span>
-        <span>Identificacao de interlocutor</span>
-        <span>Atualizacao automatica</span>
+        <span>Identificação de interlocutor</span>
+        <span>Atualização automática</span>
       </div>
     </div>
   `;
@@ -150,7 +150,7 @@ function setRunning(value) {
   $(".call-label").textContent = value ? "Encerrar chamada" : "Iniciar chamada";
   $("#voiceStatus").innerHTML = value
     ? "<i></i>Chamada em andamento"
-    : "<i></i>Aguardando inicio";
+    : "<i></i>Aguardando início";
   if (value) {
     startDuration();
   } else {
@@ -165,7 +165,7 @@ function startSimulation() {
   setRunning(true);
   transcriptSets[selectedScenario].forEach(([role, text], index) => {
     timers.push(setTimeout(() => {
-      setTranscriptStatus(role === "ai" ? "DDM AI respondendo" : "Voce esta falando", "status-speaking");
+      setTranscriptStatus(role === "ai" ? "DDM AI respondendo" : "Você está falando", "status-speaking");
       addLine(role, text);
     }, 700 + index * 1300));
   });
@@ -187,7 +187,7 @@ async function getVapiClient() {
     resetTranscript();
     setRunning(true);
     setTranscriptStatus("Chamada ativa", "status-speaking");
-    addLine("ai", "Chamada conectada. A conversa sera acompanhada em tempo real aqui.");
+    addLine("ai", "Chamada conectada. A conversa será acompanhada em tempo real aqui.");
   });
 
   client.on("call-end", () => {
@@ -198,7 +198,7 @@ async function getVapiClient() {
   client.on("speech-start", () => {
     $("#callCore").classList.add("running");
     $("#waveform")?.classList.add("running");
-    setTranscriptStatus("Audio detectado", "status-speaking");
+    setTranscriptStatus("Áudio detectado", "status-speaking");
   });
 
   client.on("speech-end", () => {
@@ -218,7 +218,7 @@ async function getVapiClient() {
     console.error("Vapi error:", error);
     setRunning(false);
     realCall = false;
-    alert("Nao foi possivel iniciar a chamada agora. Verifique a permissao do microfone e tente novamente.");
+    alert("Não foi possível iniciar a chamada agora. Verifique a permissão do microfone e tente novamente.");
   });
 
   vapiClient = client;
@@ -236,7 +236,7 @@ async function startVapiCall() {
     console.error(error);
     realCall = false;
     setRunning(false);
-    alert("Nao foi possivel iniciar a experiencia de voz agora. Tente novamente em instantes.");
+    alert("Não foi possível iniciar a experiência de voz agora. Tente novamente em instantes.");
   }
 }
 
@@ -286,7 +286,7 @@ function addChatMessage(role, text, extraClass = "") {
   message.className = `chat-message ${isUser ? "user" : "assistant"} ${extraClass}`.trim();
   message.innerHTML = isUser ? `
     <div class="message-content">
-      <span class="message-author">VOCE</span>
+      <span class="message-author">VOCÊ</span>
       <div class="message-bubble"></div>
     </div>
   ` : `
@@ -314,7 +314,7 @@ async function sendChatMessage(text) {
   input.disabled = true;
   submit.disabled = true;
 
-  const loading = addChatMessage("model", "Assistente DDM esta analisando...", "loading");
+  const loading = addChatMessage("model", "Assistente DDM está analisando...", "loading");
 
   try {
     const response = await fetch("./chat.php", {
@@ -329,7 +329,7 @@ async function sendChatMessage(text) {
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok || !data.reply) {
-      throw new Error(data.error || "Nao foi possivel responder agora.");
+      throw new Error(data.error || "Não foi possível responder agora.");
     }
 
     loading.querySelector(".message-bubble").textContent = data.reply;
@@ -338,7 +338,7 @@ async function sendChatMessage(text) {
     chatHistory.push({ role: "model", text: data.reply });
     chatHistory = chatHistory.slice(-10);
   } catch (error) {
-    loading.querySelector(".message-bubble").textContent = error.message || "Nao foi possivel conectar ao assistente agora.";
+    loading.querySelector(".message-bubble").textContent = error.message || "Não foi possível conectar ao assistente agora.";
     loading.classList.remove("loading");
     loading.classList.add("error");
   } finally {
