@@ -37,9 +37,7 @@ let durationTimer = null;
 let callStartedAt = null;
 let chatScenario = "cobranca";
 let chatHistory = [
-  { role: "model", text: "Ola. Posso demonstrar uma negociacao, qualificar um lead ou explicar os produtos DDM." },
-  { role: "user", text: "Quero entender como o Call IA funciona." },
-  { role: "model", text: "Ele conduz conversas por voz, registra desfechos e apoia a operacao com dados em tempo real." }
+  { role: "model", text: "Ola. Sou o assistente virtual da DDM. Posso demonstrar como nossas solucoes de IA atuam em voz, atendimento, cobranca e automacao." }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -284,26 +282,32 @@ function addChatMessage(role, text, extraClass = "") {
   if (!messages) return null;
 
   const message = document.createElement("div");
-  message.className = `msg ${role === "user" ? "user" : "ai"} ${extraClass}`.trim();
-  message.textContent = text;
+  const isUser = role === "user";
+  message.className = `chat-message ${isUser ? "user" : "assistant"} ${extraClass}`.trim();
+  message.innerHTML = isUser ? `
+    <div class="message-content">
+      <span class="message-author">VOCE</span>
+      <div class="message-bubble"></div>
+    </div>
+  ` : `
+    <div class="message-avatar">
+      <img src="./assets/acordito.png" alt="">
+    </div>
+    <div class="message-content">
+      <span class="message-author">ASSISTENTE DDM</span>
+      <div class="message-bubble"></div>
+    </div>
+  `;
+  message.querySelector(".message-bubble").textContent = text;
   messages.appendChild(message);
   messages.scrollTop = messages.scrollHeight;
   return message;
 }
 
-$$(".chat-mode-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    chatScenario = button.dataset.chatMode || "atendimento";
-    $$(".chat-mode-button").forEach((item) => item.classList.toggle("active", item === button));
-  });
-});
-
-$("#chatForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const input = event.currentTarget.querySelector("input");
-  const submit = event.currentTarget.querySelector("button");
-  const text = input.value.trim();
-  if (!text) return;
+async function sendChatMessage(text) {
+  const form = $("#chatForm");
+  const input = form.querySelector("input");
+  const submit = form.querySelector("button");
 
   addChatMessage("user", text);
   input.value = "";
@@ -328,13 +332,13 @@ $("#chatForm").addEventListener("submit", async (event) => {
       throw new Error(data.error || "Nao foi possivel responder agora.");
     }
 
-    loading.textContent = data.reply;
+    loading.querySelector(".message-bubble").textContent = data.reply;
     loading.classList.remove("loading");
     chatHistory.push({ role: "user", text });
     chatHistory.push({ role: "model", text: data.reply });
     chatHistory = chatHistory.slice(-10);
   } catch (error) {
-    loading.textContent = error.message || "Nao foi possivel conectar ao assistente agora.";
+    loading.querySelector(".message-bubble").textContent = error.message || "Nao foi possivel conectar ao assistente agora.";
     loading.classList.remove("loading");
     loading.classList.add("error");
   } finally {
@@ -342,6 +346,23 @@ $("#chatForm").addEventListener("submit", async (event) => {
     submit.disabled = false;
     input.focus();
   }
+}
+
+$$(".suggestion-chip").forEach((button) => {
+  button.addEventListener("click", () => {
+    chatScenario = button.dataset.chatMode || "atendimento";
+    const prompt = button.dataset.chatPrompt;
+    if (prompt) sendChatMessage(prompt);
+  });
+});
+
+$("#chatForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const input = event.currentTarget.querySelector("input");
+  const text = input.value.trim();
+  if (!text) return;
+
+  sendChatMessage(text);
 });
 
 $$("[data-interest]").forEach((link) => {

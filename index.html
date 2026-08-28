@@ -180,32 +180,48 @@
       <div class="lab-panel" id="panel-chat">
         <div class="chat-lab">
           <div class="chat-copy">
-            <span class="live-pill"><i></i> chat preparado</span>
+            <div class="chat-copy-status">
+              <img src="./assets/acordito.png" alt="Acordito">
+              <span class="live-pill"><i></i> chat preparado</span>
+            </div>
             <h3>Chat com IA para atendimento e relacionamento.</h3>
             <p>Use o chat para visualizar como um agente DDM pode orientar atendimento, relacionamento e triagem.</p>
           </div>
           <div class="chat-window">
-            <div class="chat-head">
-              <div class="chat-avatar">
-                <img src="./assets/acordito.png" alt="Acordito">
+            <div class="chat-header">
+              <div class="chat-agent">
+                <div class="chat-avatar">
+                  <img src="./assets/acordito.png" alt="Acordito">
+                </div>
+                <div class="chat-agent-info"><strong>Assistente DDM</strong><span>Demonstracao interativa</span></div>
               </div>
-              <div><b>Assistente DDM</b><span>Online para demonstracao</span></div>
+              <div class="chat-live">ONLINE</div>
             </div>
-            <div class="chat-mode" aria-label="Cenario do chat">
-              <button class="chat-mode-button active" type="button" data-chat-mode="cobranca">Cobranca</button>
-              <button class="chat-mode-button" type="button" data-chat-mode="qualificacao">Qualificacao</button>
-              <button class="chat-mode-button" type="button" data-chat-mode="atendimento">Atendimento</button>
+            <div class="chat-messages" id="chatMessages">
+              <div class="chat-message assistant">
+                <div class="message-avatar">
+                  <img src="./assets/acordito.png" alt="">
+                </div>
+                <div class="message-content">
+                  <span class="message-author">ASSISTENTE DDM</span>
+                  <div class="message-bubble">Ola. Sou o assistente virtual da DDM. Posso demonstrar como nossas solucoes de IA atuam em voz, atendimento, cobranca e automacao.</div>
+                </div>
+              </div>
             </div>
-            <div class="messages" id="chatMessages">
-              <div class="msg ai">Ola. Posso demonstrar uma negociacao, qualificar um lead ou explicar os produtos DDM.</div>
-              <div class="msg user">Quero entender como o Call IA funciona.</div>
-              <div class="msg ai">Ele conduz conversas por voz, registra desfechos e apoia a operacao com dados em tempo real.</div>
+            <div class="chat-suggestions">
+              <span>EXPERIMENTE PERGUNTAR</span>
+              <div class="suggestion-list">
+                <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Como funciona o Call IA?">Como funciona o Call IA?</button>
+                <button class="suggestion-chip" type="button" data-chat-mode="cobranca" data-chat-prompt="Simule uma negociacao de cobranca">Simular cobranca</button>
+                <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Explique o Call IA WhatsApp">Call IA WhatsApp</button>
+                <button class="suggestion-chip" type="button" data-chat-mode="qualificacao" data-chat-prompt="Quero saber qual produto faz sentido para minha operacao">Ver produtos</button>
+              </div>
             </div>
-            <form class="chat-form" id="chatForm">
+            <form class="chat-composer" id="chatForm">
               <input aria-label="Mensagem" placeholder="Digite uma pergunta...">
-              <button type="submit">Enviar</button>
+              <button class="chat-send" type="submit" aria-label="Enviar">→</button>
             </form>
-            <a class="chat-contact-link" href="#contato" data-interest="Quero entender qual solucao faz sentido">Quero testar o chat com IA</a>
+            <div class="chat-foot-status"><i></i> Demonstracao ao vivo · Assistente DDM</div>
           </div>
         </div>
       </div>
