@@ -642,13 +642,63 @@ nav a:hover { color: #fff; }
 .chat-window { display: flex; flex-direction: column; min-height: 560px; overflow: hidden; border-radius: 22px; background: #fff; color: #111; }
 .chat-head { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 0 18px; border-bottom: 1px solid #eee; }
 .avatar { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: #171719; color: var(--orange); font-weight: 900; }
+.chat-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #19191b, #050505);
+  border: 1px solid rgba(255, 93, 27, .22);
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+.chat-avatar img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  transform: translateY(2px);
+}
 .chat-head span { display: block; margin-top: 3px; color: #777; font-size: 11px; }
+.chat-mode {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+.chat-mode-button {
+  min-height: 38px;
+  border: 1px solid #e4e4e4;
+  border-radius: 999px;
+  background: #f6f6f6;
+  color: #5d5d62;
+  font-weight: 850;
+  font-size: 12px;
+  cursor: pointer;
+}
+.chat-mode-button.active {
+  border-color: #171719;
+  background: #171719;
+  color: #fff;
+}
 .messages { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 22px; overflow: auto; background: #fafafa; }
 .msg { max-width: 76%; padding: 13px 14px; border-radius: 16px 16px 16px 5px; background: #fff; border: 1px solid #e7e7e7; font-size: 14px; }
 .msg.user { align-self: flex-end; border-radius: 16px 16px 5px 16px; background: #171719; color: #fff; }
+.msg.loading {
+  color: #777;
+  background: #fff;
+}
+.msg.error {
+  border-color: rgba(255, 93, 27, .35);
+  background: #fff4ef;
+  color: #9a2d04;
+}
 .chat-form { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 14px; border-top: 1px solid #eee; }
 .chat-form input { min-width: 0; border: 1px solid #dedede; border-radius: 999px; padding: 0 16px; outline: none; }
-.chat-form button { border: 0; border-radius: 999px; padding: 0 18px; background: var(--orange); color: #fff; font-weight: 850; }
+.chat-form button { border: 0; border-radius: 999px; padding: 0 18px; background: var(--orange); color: #fff; font-weight: 850; cursor: pointer; }
+.chat-form button:disabled { opacity: .55; cursor: wait; }
 
 .products-section {
   width: 100%;
@@ -1314,6 +1364,7 @@ footer p { margin: 0; color: #777; font-size: 13px; }
   .transcript-footer > div { border-right: 0; border-bottom: 1px solid rgba(0,0,0,.06); }
   .product-visual, .product-card--featured .product-visual, .product-card--wide .product-visual { width: 118px; height: 86px; top: 20px; right: 20px; opacity: .55; }
   .callia-preview .preview-body, .callia-preview .metric-row { display: none; }
+  .chat-mode { grid-template-columns: 1fr; }
   .chat-form { grid-template-columns: 1fr; }
   .chat-form input, .chat-form button { min-height: 46px; }
   footer { flex-direction: column; }

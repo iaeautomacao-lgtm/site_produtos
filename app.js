@@ -35,6 +35,12 @@ let vapiClient = null;
 let timers = [];
 let durationTimer = null;
 let callStartedAt = null;
+let chatScenario = "cobranca";
+let chatHistory = [
+  { role: "model", text: "Ola. Posso demonstrar uma negociacao, qualificar um lead ou explicar os produtos DDM." },
+  { role: "user", text: "Quero entender como o Call IA funciona." },
+  { role: "model", text: "Ele conduz conversas por voz, registra desfechos e apoia a operacao com dados em tempo real." }
+];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -273,26 +279,69 @@ $("#callButton").addEventListener("click", async () => {
   startSimulation();
 });
 
-$("#chatForm").addEventListener("submit", (event) => {
+function addChatMessage(role, text, extraClass = "") {
+  const messages = $("#chatMessages");
+  if (!messages) return null;
+
+  const message = document.createElement("div");
+  message.className = `msg ${role === "user" ? "user" : "ai"} ${extraClass}`.trim();
+  message.textContent = text;
+  messages.appendChild(message);
+  messages.scrollTop = messages.scrollHeight;
+  return message;
+}
+
+$$(".chat-mode-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    chatScenario = button.dataset.chatMode || "atendimento";
+    $$(".chat-mode-button").forEach((item) => item.classList.toggle("active", item === button));
+  });
+});
+
+$("#chatForm").addEventListener("submit", async (event) => {
   event.preventDefault();
   const input = event.currentTarget.querySelector("input");
+  const submit = event.currentTarget.querySelector("button");
   const text = input.value.trim();
   if (!text) return;
 
-  const messages = $("#chatMessages");
-  const user = document.createElement("div");
-  user.className = "msg user";
-  user.textContent = text;
-  messages.appendChild(user);
+  addChatMessage("user", text);
   input.value = "";
+  input.disabled = true;
+  submit.disabled = true;
 
-  setTimeout(() => {
-    const ai = document.createElement("div");
-    ai.className = "msg ai";
-    ai.textContent = "Um agente DDM pode responder, orientar o atendimento e encaminhar a proxima acao com base no contexto da operacao.";
-    messages.appendChild(ai);
-    messages.scrollTop = messages.scrollHeight;
-  }, 550);
+  const loading = addChatMessage("model", "Assistente DDM esta analisando...", "loading");
+
+  try {
+    const response = await fetch("./chat.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        scenario: chatScenario,
+        message: text,
+        history: chatHistory
+      })
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.reply) {
+      throw new Error(data.error || "Nao foi possivel responder agora.");
+    }
+
+    loading.textContent = data.reply;
+    loading.classList.remove("loading");
+    chatHistory.push({ role: "user", text });
+    chatHistory.push({ role: "model", text: data.reply });
+    chatHistory = chatHistory.slice(-10);
+  } catch (error) {
+    loading.textContent = error.message || "Nao foi possivel conectar ao assistente agora.";
+    loading.classList.remove("loading");
+    loading.classList.add("error");
+  } finally {
+    input.disabled = false;
+    submit.disabled = false;
+    input.focus();
+  }
 });
 
 $$("[data-interest]").forEach((link) => {
