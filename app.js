@@ -368,18 +368,54 @@ $("#chatForm").addEventListener("submit", async (event) => {
 $$("[data-interest]").forEach((link) => {
   link.addEventListener("click", () => {
     const interest = link.dataset.interest;
-    const select = $("#interestSelect");
-    if (!select || !interest) return;
+    if (!interest) return;
 
-    Array.from(select.options).forEach((option) => {
-      option.selected = option.textContent.trim() === interest;
+    $$('input[name="interesse[]"]').forEach((option) => {
+      option.checked = option.value === interest || option.checked;
     });
   });
 });
 
-$("#contactForm")?.addEventListener("submit", (event) => {
+const initialInterest = new URLSearchParams(window.location.search).get("interest");
+if (initialInterest) {
+  $$('input[name="interesse[]"]').forEach((option) => {
+    option.checked = option.value === initialInterest;
+  });
+}
+
+$("#contactForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
-  $("#formFeedback").textContent = "Mensagem recebida. Nosso time comercial entrara em contato.";
+  const form = event.currentTarget;
+  const feedback = $("#formFeedback");
+  const submit = form.querySelector('button[type="submit"]');
+  const originalText = submit.innerHTML;
+
+  feedback.className = "form-feedback";
+  feedback.textContent = "Enviando mensagem...";
+  submit.disabled = true;
+  submit.innerHTML = "Enviando...";
+
+  try {
+    const response = await fetch("./contato.php", {
+      method: "POST",
+      body: new FormData(form)
+    });
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || "Nao foi possivel enviar agora.");
+    }
+
+    feedback.classList.add("success");
+    feedback.textContent = data.message || "Mensagem enviada. Nosso time comercial entrara em contato.";
+    form.reset();
+  } catch (error) {
+    feedback.classList.add("error");
+    feedback.textContent = error.message || "Nao foi possivel enviar agora. Tente pelo WhatsApp comercial.";
+  } finally {
+    submit.disabled = false;
+    submit.innerHTML = originalText;
+  }
 });
 
 setIntegrationMode();

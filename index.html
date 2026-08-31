@@ -17,9 +17,8 @@
       <img src="./assets/logo-ddm.png" alt="Grupo DDM">
     </a>
     <nav aria-label="Navegação principal">
-      <a href="#lab">Demo</a>
+      <a href="#lab">Nossos agentes</a>
       <a href="#produtos">Produtos</a>
-      <a href="#operacao">Operação</a>
       <a href="#contato">Contato</a>
     </nav>
     <a class="header-cta" href="#lab">Testar experiência</a>
@@ -41,7 +40,7 @@
             e inteligência aplicada aos produtos DDM.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#lab">Entrar no Live AI Lab</a>
+            <a class="button primary" href="#lab">TESTE AGORA</a>
             <a class="button secondary" href="#produtos">Ver produtos</a>
           </div>
         </div>
@@ -71,10 +70,10 @@
 
     <section id="lab" class="section lab-section">
       <div class="section-head">
-        <span class="eyebrow dark"><i></i> LIVE AI LAB</span>
+        <span class="eyebrow dark"><i></i> NOSSOS AGENTES</span>
         <div>
-          <h2>A demonstração vira o centro da página.</h2>
-          <p>Escolha um cenário e veja como os agentes DDM conduzem voz e chat com foco em resultado operacional.</p>
+          <h2>Experimente como os agentes DDM conduzem conversas reais.</h2>
+          <p>Escolha voz ou chat para visualizar atendimento, cobrança e qualificação com foco em resultado para a operação.</p>
         </div>
       </div>
 
@@ -98,7 +97,7 @@
                 <span>01</span><b>Cobrança</b><small>Negociação e acordos</small>
               </button>
               <button class="scenario" data-scenario="qualificacao" type="button">
-                <span>02</span><b>Qualificação</b><small>Triagem comercial</small>
+                <span>02</span><b>Qualificação</b><small>Qualificação do lead</small>
               </button>
               <button class="scenario" data-scenario="atendimento" type="button">
                 <span>03</span><b>Atendimento</b><small>Suporte e SAC</small>
@@ -236,8 +235,8 @@
         </div>
       </div>
 
-      <div class="product-grid">
-        <article class="product-card product-card--featured">
+      <div class="product-grid product-grid--links" id="productGrid">
+        <a class="product-card product-card--featured" href="./produto.html?produto=callia">
           <div class="product-visual callia-preview image-preview" aria-hidden="true">
             <img src="./assets/DDM CALL IA.png" alt="">
           </div>
@@ -245,135 +244,74 @@
           <h3>Call IA</h3>
           <p>Agentes de voz com IA para cobrança, vendas, atendimento e operações ativas ou receptivas.</p>
           <div class="product-actions">
-            <a href="#lab">Ver demonstração</a>
-            <a href="#contato" data-interest="DDM Call IA">Falar com especialista</a>
+            <strong>Ver produto</strong>
+            <small>Explorar demonstração ↗</small>
           </div>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=qualiddm">
           <div class="product-visual image-preview quality-screen" aria-hidden="true">
             <img src="./assets/QUALIDDM.jpeg" alt="">
           </div>
           <span>02 / Monitoria com IA</span>
           <h3>QualiDDM</h3>
           <p>Monitoria e auditoria de voz e chat com IA para qualidade, compliance e inteligência operacional.</p>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=creator">
           <div class="product-visual image-preview creator-screen" aria-hidden="true">
             <img src="./assets/DDM CREATOR.png" alt="">
           </div>
           <span>03 / Criação de imagens</span>
           <h3>Creator</h3>
           <p>Criação de imagens com IA para campanhas, comunicação e produção visual alinhada à identidade da marca.</p>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=dashboard">
           <div class="product-visual image-preview dashboard-screen" aria-hidden="true">
             <img src="./assets/DASHBOARD CREATOR.jpeg" alt="">
           </div>
           <span>04 / Dados &amp; dashboards</span>
           <h3>Dashboard Creator</h3>
           <p>Transforme dados e planilhas em dashboards, KPIs e análises executivas orientadas ao negócio.</p>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=leads">
           <div class="product-visual image-preview lead-screen" aria-hidden="true">
             <img src="./assets/EXTRATOR DE LEADS.jpeg" alt="">
           </div>
           <span>05 / Comercial</span>
           <h3>Extrator de Leads</h3>
           <p>Encontre, qualifique e enriqueça leads para acelerar a prospecção e aumentar a eficiência comercial.</p>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=crm">
           <div class="product-visual image-preview crm-screen" aria-hidden="true">
             <img src="./assets/OMNI CRM DDM.png" alt="">
           </div>
           <span>06 / Atendimento</span>
           <h3>Omni CRM</h3>
           <p>Centralize atendimento, WhatsApp, equipes, automações e gestão operacional em uma única plataforma.</p>
-        </article>
-        <article class="product-card">
+        </a>
+        <a class="product-card" href="./produto.html?produto=mail">
           <div class="product-visual image-preview mail-screen" aria-hidden="true">
             <img src="./assets/DDM BACKOFFICE.jpeg" alt="">
           </div>
           <span>07 / Automação de e-mail</span>
           <h3>Mail IA</h3>
           <p>Automatize atendimento e backoffice por e-mail com IA, conhecimento corporativo e controle operacional.</p>
-        </article>
-        <article class="product-card product-card--wide">
+        </a>
+        <a class="product-card" href="./produto.html?produto=labs">
+          <div class="product-visual image-preview labs-screen" aria-hidden="true">
+            <img src="./assets/DDM LABS.png" alt="">
+          </div>
+          <span>08 / Hub corporativo</span>
+          <h3>DDM Labs</h3>
+          <p>Centralize agentes de IA, automações, dashboards e ferramentas digitais em um único ecossistema corporativo.</p>
+        </a>
+        <a class="product-card product-card--wide" href="./produto.html?produto=whatsapp">
           <div class="product-visual image-preview whatsapp-screen" aria-hidden="true">
             <img src="./assets/DDM CALL IA WHATSAPP.png" alt="">
           </div>
-          <span>08 / Voz em escala</span>
+          <span>09 / Voz em escala</span>
           <h3>Call IA WhatsApp</h3>
           <p><strong>Milhares de conversas. Uma operação.</strong> Agente de voz com IA para chamadas via WhatsApp em escala, com personalização, campanhas e acompanhamento operacional.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="operation-section" id="operacao">
-      <div class="operation-container">
-        <div class="operation-intro">
-          <span class="section-eyebrow"><i></i> COMO A IA ENTRA NA OPERAÇÃO</span>
-          <h2>Da conversa<br>à execução,<br><span>em tempo real.</span></h2>
-          <p>A tecnologia DDM conecta voz, atendimento, automação e dados para transformar cada interação em uma ação operacional.</p>
-          <div class="operation-flow">
-            <span>CONVERSA</span>
-            <b>→</b>
-            <span>EXECUÇÃO</span>
-            <b>→</b>
-            <span>INTELIGÊNCIA</span>
-          </div>
-        </div>
-
-        <div class="operation-content">
-          <article class="operation-card">
-            <span class="operation-number">01</span>
-            <div class="operation-icon voice-icon"><i></i><i></i><i></i><i></i><i></i></div>
-            <div>
-              <span class="operation-label">INTERAÇÃO</span>
-              <h3>Conversa inteligente</h3>
-              <p>Agentes de voz e chat conduzem interações naturais seguindo contexto, regras e objetivos definidos para cada operação.</p>
-            </div>
-          </article>
-
-          <article class="operation-card operation-card-dark">
-            <span class="operation-number">02</span>
-            <div class="scale-visual"><span></span><span></span><span></span><span></span></div>
-            <div>
-              <span class="operation-label">ESCALABILIDADE</span>
-              <h3>Operação em escala</h3>
-              <p>Chamadas, atendimentos e campanhas acontecem simultaneamente, mantendo consistencia e disponibilidade em alto volume.</p>
-            </div>
-          </article>
-
-          <article class="operation-card">
-            <span class="operation-number">03</span>
-            <div class="integration-visual"><span>CRM</span><i></i><strong>AI</strong><i></i><span>DATA</span></div>
-            <div>
-              <span class="operation-label">CONEXAO</span>
-              <h3>Integração operacional</h3>
-              <p>Os agentes consultam dados, registram informações e executam fluxos conectados aos processos da empresa.</p>
-            </div>
-          </article>
-
-          <article class="operation-card operation-card-accent">
-            <span class="operation-number">04</span>
-            <div class="mini-chart"><i style="height:35%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:72%"></i><i style="height:92%"></i></div>
-            <div>
-              <span class="operation-label">GESTÃO</span>
-              <h3>Inteligência operacional</h3>
-              <p>Indicadores, transcrições e resultados transformam cada interação em informação para decisões mais rápidas.</p>
-            </div>
-          </article>
-
-          <article class="operation-card whatsapp-operation-card">
-            <span class="operation-number">WA</span>
-            <div class="whatsapp-visual"><span></span><span></span><span></span></div>
-            <div>
-              <span class="operation-label">VOZ - WHATSAPP</span>
-              <h3>Ligações via WhatsApp em escala</h3>
-              <p>Automatize campanhas de voz diretamente pelo WhatsApp com agentes inteligentes, abordagem personalizada e capacidade de atendimento simultaneo em grande volume.</p>
-            </div>
-          </article>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -421,30 +359,34 @@
             <span>Telefone</span>
             <input name="telefone" inputmode="tel" placeholder="(11) 99999-9999">
           </label>
-          <label>
+          <fieldset class="interest-field" id="interestSelect">
             <span>Interesse</span>
-            <select name="interesse" id="interestSelect">
-              <option value="">Selecione uma solução</option>
-              <option>DDM Call IA</option>
-              <option>DDM Call IA WhatsApp</option>
-              <option>DDM CRM</option>
-              <option>DDM Mail IA</option>
-              <option>QualiDDM</option>
-              <option>DDM Creator</option>
-              <option>DDM Dashboard Creator</option>
-              <option>DDM Extrator de Leads</option>
-              <option>Quero entender qual solução faz sentido</option>
-            </select>
-          </label>
+            <div class="interest-options">
+              <label><input type="checkbox" name="interesse[]" value="DDM Call IA"><span>DDM Call IA</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Call IA WhatsApp"><span>Call IA WhatsApp</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM CRM"><span>Omni CRM</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Mail IA"><span>Mail IA</span></label>
+              <label><input type="checkbox" name="interesse[]" value="QualiDDM"><span>QualiDDM</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Creator"><span>Creator</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Dashboard Creator"><span>Dashboard Creator</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Extrator de Leads"><span>Extrator de Leads</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Labs"><span>DDM Labs</span></label>
+              <label><input type="checkbox" name="interesse[]" value="Quero entender qual solução faz sentido"><span>Quero orientação</span></label>
+            </div>
+          </fieldset>
           <label>
             <span>Segmento de atuação</span>
             <select name="segmento">
               <option>Selecione...</option>
+              <option>Varejo</option>
+              <option>Banco</option>
+              <option>Telecom</option>
+              <option>Concessionárias</option>
               <option>Cobrança e recuperação de crédito</option>
               <option>Atendimento e SAC</option>
               <option>Comercial e vendas</option>
               <option>Financeiro</option>
-              <option>Outro</option>
+              <option>Outras</option>
             </select>
           </label>
           <label class="full">
@@ -467,14 +409,17 @@
           </div>
           <div class="contact-card offices">
             <span>Escritórios</span>
-            <p><b>São Paulo</b>Av. Paulista, Bela Vista, SP</p>
+            <p><b>São Paulo</b>Rua Álvares Penteado, 231, 6o andar, Centro Histórico, São Paulo SP</p>
             <p><b>Centro, RJ</b>Marechal Floriano, Centro, Rio de Janeiro</p>
-            <p><b>Barra da Tijuca, RJ</b>Ayrton Senna, Uptown, Rio de Janeiro</p>
           </div>
-          <div class="contact-card ai-reminder">
-            <b>Prefere conversar agora?</b>
-            <p>Teste a experiência de voz ou chat no Live AI Lab acima.</p>
-            <a href="#lab">Voltar para demo</a>
+          <div class="contact-quick">
+            <span class="contact-quick-label"><i></i> ATENDIMENTO COMERCIAL</span>
+            <h3>Prefere falar pelo WhatsApp?</h3>
+            <p>Converse diretamente com nosso time e encontre a solução ideal para sua operação.</p>
+            <div class="contact-actions">
+              <a class="contact-whatsapp" href="https://api.whatsapp.com/send/?phone=21999018751" target="_blank" rel="noopener">WhatsApp ↗</a>
+            </div>
+            <div class="contact-status"><i></i> Atendimento comercial · Seg-Sex, 09h às 19h</div>
           </div>
         </aside>
       </div>
