@@ -9,9 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20260831">
+  <link rel="stylesheet" href="./styles.css?v=20260901m">
 </head>
 <body>
+  <div class="scroll-glow" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Grupo DDM">
       <img src="./assets/logo-ddm.png" alt="Grupo DDM">
@@ -25,7 +28,7 @@
   </header>
 
   <main id="top">
-    <section class="hero">
+    <section class="hero" data-glow data-dark>
       <video class="hero-video" autoplay muted loop playsinline>
         <source src="./assets/hero.mp4" type="video/mp4">
       </video>
@@ -33,7 +36,6 @@
 
       <div class="hero-inner">
         <div class="hero-copy">
-          <span class="eyebrow"><i></i> DDM AI HUB</span>
           <h1>IA que conversa, entende e movimenta a operação.</h1>
           <p>
             Uma vitrine interativa para demonstrar agentes de voz, chat, automações
@@ -45,7 +47,7 @@
           </div>
         </div>
 
-        <aside class="hero-console" aria-label="Resumo da operação de IA">
+        <aside class="hero-console" aria-label="Resumo da operação de IA" data-parallax="-26" data-tilt="5">
           <div class="console-top">
             <span class="traffic red"></span>
             <span class="traffic amber"></span>
@@ -58,175 +60,219 @@
             <small>Escolha um cenário e experimente a conversa com a IA.</small>
           </div>
           <div class="signal-grid">
-            <div><b>24/7</b><span>Disponibilidade</span></div>
-            <div><b>3</b><span>Cenários</span></div>
-            <div><b>Live</b><span>Chat e voz</span></div>
-            <div><b>IA</b><span>Operacional</span></div>
+            <div><b data-count="10">10</b><span>Produtos</span></div>
+            <div><b data-count="3">3</b><span>Cenários</span></div>
+            <div><b data-count="24" data-count-suffix="/7">24/7</b><span>Disponibilidade</span></div>
+            <div><b data-count="2">2</b><span>Canais: voz e chat</span></div>
           </div>
           <a class="console-link" href="#contato" data-interest="DDM Call IA">Falar com especialista</a>
         </aside>
       </div>
     </section>
 
-    <section id="lab" class="section lab-section">
-      <div class="section-head">
-        <span class="eyebrow dark"><i></i> NOSSOS AGENTES</span>
-        <div>
-          <h2>Experimente como os agentes DDM conduzem conversas reais.</h2>
-          <p>Escolha voz ou chat para visualizar atendimento, cobrança e qualificação com foco em resultado para a operação.</p>
+
+    <div class="capability-band" data-glow>
+      <div class="capability-track">
+        <ul class="capability-row">
+            <li>Voz</li>
+            <li>Chat</li>
+            <li>Automação</li>
+            <li>Qualidade</li>
+            <li>Dados</li>
+            <li>Escala</li>
+            <li>Integração</li>
+            <li>Tempo real</li>
+        </ul>
+        <ul class="capability-row" aria-hidden="true">
+            <li>Voz</li>
+            <li>Chat</li>
+            <li>Automação</li>
+            <li>Qualidade</li>
+            <li>Dados</li>
+            <li>Escala</li>
+            <li>Integração</li>
+            <li>Tempo real</li>
+        </ul>
+      </div>
+      <span class="capability-hint">O que os agentes DDM colocam em operação</span>
+    </div>
+
+    <section id="lab" class="lab-section" data-glow data-dark>
+      <div class="lab-backdrop" aria-hidden="true"></div>
+
+      <div class="lab-inner">
+        <div class="section-head light">
+          <span class="eyebrow"><i></i> NOSSOS AGENTES</span>
+          <div>
+            <h2>Experimente como os agentes DDM conduzem conversas reais.</h2>
+            <p>Escolha voz ou chat para visualizar atendimento, cobrança e qualificação com foco em resultado para a operação.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="lab-tabs" role="tablist" aria-label="Tipos de demonstração">
-        <button class="tab active" data-panel="voz" type="button">Voz</button>
-        <button class="tab" data-panel="chat" type="button">Chat</button>
-      </div>
+        <div class="lab-tabs" role="tablist" aria-label="Tipos de demonstração">
+          <button class="tab active" data-panel="voz" type="button">Voz</button>
+          <button class="tab" data-panel="chat" type="button">Chat</button>
+        </div>
 
-      <div class="lab-panel active" id="panel-voz">
-        <div class="voice-lab">
-          <div class="voice-left">
-            <div class="status-row">
-              <span class="live-pill" id="voiceMode"><i></i> agente DDM</span>
-              <strong id="voiceStatus"><i></i>Aguardando início</strong>
-            </div>
-            <h3>DDM Call IA</h3>
-            <p>Escolha um cenário e veja como a interface vai se comportar durante uma chamada real.</p>
+        <div class="lab-stage">
+          <i class="lab-corner tl" aria-hidden="true"></i>
+          <i class="lab-corner tr" aria-hidden="true"></i>
+          <i class="lab-corner bl" aria-hidden="true"></i>
+          <i class="lab-corner br" aria-hidden="true"></i>
 
-            <div class="scenario-list" aria-label="Cenários de chamada">
-              <button class="scenario active" data-scenario="cobranca" type="button">
-                <span>01</span><b>Cobrança</b><small>Negociação e acordos</small>
-              </button>
-              <button class="scenario" data-scenario="qualificacao" type="button">
-                <span>02</span><b>Qualificação</b><small>Qualificação do lead</small>
-              </button>
-              <button class="scenario" data-scenario="atendimento" type="button">
-                <span>03</span><b>Atendimento</b><small>Suporte e SAC</small>
-              </button>
-            </div>
+        <div class="lab-panel active" id="panel-voz">
+          <div class="voice-lab">
+            <div class="voice-left">
+              <div class="status-row">
+                <span class="live-pill" id="voiceMode"><i></i> agente DDM</span>
+                <strong id="voiceStatus"><i></i>Aguardando início</strong>
+              </div>
+              <h3>DDM Call IA</h3>
+              <p>Escolha um cenário e veja como a interface vai se comportar durante uma chamada real.</p>
+
+              <div class="scenario-list" aria-label="Cenários de chamada">
+                <button class="scenario active" data-scenario="cobranca" type="button">
+                  <span>01</span><b>Cobrança</b><small>Negociação e acordos</small>
+                </button>
+                <button class="scenario" data-scenario="qualificacao" type="button">
+                  <span>02</span><b>Qualificação</b><small>Qualificação do lead</small>
+                </button>
+                <button class="scenario" data-scenario="atendimento" type="button">
+                  <span>03</span><b>Atendimento</b><small>Suporte e SAC</small>
+                </button>
+              </div>
+
+              <ol class="agent-states" id="agentStates" aria-label="Estado do agente">
+              <li data-state="listening"><i></i>Ouvindo</li>
+              <li data-state="thinking"><i></i>Processando</li>
+              <li data-state="speaking"><i></i>Respondendo</li>
+            </ol>
 
             <div class="call-core" id="callCore">
-              <div class="orb-halo"></div>
-              <div class="rings"></div>
-              <div class="core-logo">
-                <span>DDM</span>
-                <b>AI</b>
+                <div class="orb-halo"></div>
+                <div class="rings"></div>
+                <div class="core-logo">
+                  <span>DDM</span>
+                  <b>AI</b>
+                </div>
+                <div class="orb-node node-one"></div>
+                <div class="orb-node node-two"></div>
+                <div class="orb-node node-three"></div>
               </div>
-              <div class="orb-node node-one"></div>
-              <div class="orb-node node-two"></div>
-              <div class="orb-node node-three"></div>
+
+              <div class="waveform" id="waveform" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+
+              <button class="call-button" id="callButton" type="button">
+                <span class="call-dot"></span>
+                <span class="call-label">Iniciar chamada</span>
+              </button>
+              <a class="lab-contact-link" href="#contato" data-interest="DDM Call IA">Quero testar com minha operação</a>
+              <small class="integration-note" id="integrationNote">Experimente a jornada de voz e veja como ela pode se adaptar ao seu processo.</small>
+              <small class="privacy-note">A chamada real deverá exibir consentimento para uso do microfone e tratamento dos dados da conversa.</small>
             </div>
 
-            <div class="waveform" id="waveform" aria-hidden="true">
-              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-            </div>
+            <aside class="transcript-panel">
+              <div class="transcript-header">
+                <div>
+                  <span class="transcript-kicker">TRANSCRIÇÃO</span>
+                  <h3>Conversa em tempo real</h3>
+                </div>
+                <div class="live-badge">
+                  <span></span>
+                  Ao vivo
+                </div>
+              </div>
 
-            <button class="call-button" id="callButton" type="button">
-              <span class="call-dot"></span>
-              <span class="call-label">Iniciar chamada</span>
-            </button>
-            <a class="lab-contact-link" href="#contato" data-interest="DDM Call IA">Quero testar com minha operação</a>
-            <small class="integration-note" id="integrationNote">Experimente a jornada de voz e veja como ela pode se adaptar ao seu processo.</small>
-            <small class="privacy-note">A chamada real deverá exibir consentimento para uso do microfone e tratamento dos dados da conversa.</small>
+              <div class="transcript-body" id="transcript">
+                <div class="transcript-empty">
+                  <div class="empty-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <h4>A conversa aparecerá aqui</h4>
+                  <p>Inicie a demonstração para acompanhar a transcrição da chamada em tempo real.</p>
+                  <div class="empty-features">
+                    <span>Voz em tempo real</span>
+                    <span>Identificação de interlocutor</span>
+                    <span>Atualização automática</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="transcript-footer">
+                <div>
+                  <span>AGENTE</span>
+                  <strong>DDM Call IA</strong>
+                </div>
+                <div>
+                  <span>STATUS</span>
+                  <strong class="status-ready" id="transcriptStatus">Pronto</strong>
+                </div>
+                <div>
+                  <span>DURACAO</span>
+                  <strong id="callDuration">00:00</strong>
+                </div>
+              </div>
+            </aside>
           </div>
-
-          <aside class="transcript-panel">
-            <div class="transcript-header">
-              <div>
-                <span class="transcript-kicker">TRANSCRIÇÃO</span>
-                <h3>Conversa em tempo real</h3>
-              </div>
-              <div class="live-badge">
-                <span></span>
-                Ao vivo
-              </div>
-            </div>
-
-            <div class="transcript-body" id="transcript">
-              <div class="transcript-empty">
-                <div class="empty-icon">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <h4>A conversa aparecerá aqui</h4>
-                <p>Inicie a demonstração para acompanhar a transcrição da chamada em tempo real.</p>
-                <div class="empty-features">
-                  <span>Voz em tempo real</span>
-                  <span>Identificação de interlocutor</span>
-                  <span>Atualização automática</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transcript-footer">
-              <div>
-                <span>AGENTE</span>
-                <strong>DDM Call IA</strong>
-              </div>
-              <div>
-                <span>STATUS</span>
-                <strong class="status-ready" id="transcriptStatus">Pronto</strong>
-              </div>
-              <div>
-                <span>DURACAO</span>
-                <strong id="callDuration">00:00</strong>
-              </div>
-            </div>
-          </aside>
         </div>
-      </div>
 
-      <div class="lab-panel" id="panel-chat">
-        <div class="chat-lab">
-          <div class="chat-copy">
-            <div class="chat-copy-status">
-              <img src="./assets/acordito.png" alt="Acordito">
-              <span class="live-pill"><i></i> chat preparado</span>
+        <div class="lab-panel" id="panel-chat">
+          <div class="chat-lab">
+            <div class="chat-copy">
+              <div class="chat-copy-status">
+                <img src="./assets/acordito.png" alt="Acordito">
+                <span class="live-pill"><i></i> chat preparado</span>
+              </div>
+              <h3>Chat com IA para atendimento e relacionamento.</h3>
+              <p>Use o chat para visualizar como um agente DDM pode orientar atendimento, relacionamento e triagem.</p>
             </div>
-            <h3>Chat com IA para atendimento e relacionamento.</h3>
-            <p>Use o chat para visualizar como um agente DDM pode orientar atendimento, relacionamento e triagem.</p>
+            <div class="chat-window">
+              <div class="chat-header">
+                <div class="chat-agent">
+                  <div class="chat-avatar">
+                    <img src="./assets/acordito.png" alt="Acordito">
+                  </div>
+                  <div class="chat-agent-info"><strong>Assistente DDM</strong><span>Demonstração interativa</span></div>
+                </div>
+                <div class="chat-live">ONLINE</div>
+              </div>
+              <div class="chat-messages" id="chatMessages">
+                <div class="chat-message assistant">
+                  <div class="message-avatar">
+                    <img src="./assets/acordito.png" alt="">
+                  </div>
+                  <div class="message-content">
+                    <span class="message-author">ASSISTENTE DDM</span>
+                    <div class="message-bubble">Olá. Sou o assistente virtual da DDM. Posso demonstrar como nossas soluções de IA atuam em voz, atendimento, cobrança e automação.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-suggestions">
+                <span>EXPERIMENTE PERGUNTAR</span>
+                <div class="suggestion-list">
+                  <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Como funciona o Call IA?">Como funciona o Call IA?</button>
+                  <button class="suggestion-chip" type="button" data-chat-mode="cobranca" data-chat-prompt="Simule uma negociação de cobrança">Simular cobrança</button>
+                  <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Explique o Call IA WhatsApp">Call IA WhatsApp</button>
+                  <button class="suggestion-chip" type="button" data-chat-mode="qualificacao" data-chat-prompt="Quero saber qual produto faz sentido para minha operação">Ver produtos</button>
+                </div>
+              </div>
+              <form class="chat-composer" id="chatForm">
+                <input aria-label="Mensagem" placeholder="Digite uma pergunta...">
+                <button class="chat-send" type="submit" aria-label="Enviar">→</button>
+              </form>
+              <div class="chat-foot-status"><i></i> Demonstração ao vivo · Assistente DDM</div>
+            </div>
           </div>
-          <div class="chat-window">
-            <div class="chat-header">
-              <div class="chat-agent">
-                <div class="chat-avatar">
-                  <img src="./assets/acordito.png" alt="Acordito">
-                </div>
-                <div class="chat-agent-info"><strong>Assistente DDM</strong><span>Demonstração interativa</span></div>
-              </div>
-              <div class="chat-live">ONLINE</div>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-              <div class="chat-message assistant">
-                <div class="message-avatar">
-                  <img src="./assets/acordito.png" alt="">
-                </div>
-                <div class="message-content">
-                  <span class="message-author">ASSISTENTE DDM</span>
-                  <div class="message-bubble">Olá. Sou o assistente virtual da DDM. Posso demonstrar como nossas soluções de IA atuam em voz, atendimento, cobrança e automação.</div>
-                </div>
-              </div>
-            </div>
-            <div class="chat-suggestions">
-              <span>EXPERIMENTE PERGUNTAR</span>
-              <div class="suggestion-list">
-                <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Como funciona o Call IA?">Como funciona o Call IA?</button>
-                <button class="suggestion-chip" type="button" data-chat-mode="cobranca" data-chat-prompt="Simule uma negociação de cobrança">Simular cobrança</button>
-                <button class="suggestion-chip" type="button" data-chat-mode="atendimento" data-chat-prompt="Explique o Call IA WhatsApp">Call IA WhatsApp</button>
-                <button class="suggestion-chip" type="button" data-chat-mode="qualificacao" data-chat-prompt="Quero saber qual produto faz sentido para minha operação">Ver produtos</button>
-              </div>
-            </div>
-            <form class="chat-composer" id="chatForm">
-              <input aria-label="Mensagem" placeholder="Digite uma pergunta...">
-              <button class="chat-send" type="submit" aria-label="Enviar">→</button>
-            </form>
-            <div class="chat-foot-status"><i></i> Demonstração ao vivo · Assistente DDM</div>
-          </div>
+        </div>
         </div>
       </div>
     </section>
 
-    <section id="produtos" class="section products-section">
+    <section id="produtos" class="section products-section" data-glow data-dark>
       <div class="section-head light">
         <span class="eyebrow"><i></i> ECOSSISTEMA DDM</span>
         <div>
@@ -235,98 +281,122 @@
         </div>
       </div>
 
+      <div class="product-filter-bar">
+        <div class="product-filters" role="group" aria-label="Filtrar produtos por categoria">
+          <button class="product-filter is-active" type="button" data-filter="todos" aria-pressed="true">Todos</button>
+          <button class="product-filter" type="button" data-filter="voz" aria-pressed="false">Voz</button>
+          <button class="product-filter" type="button" data-filter="atendimento" aria-pressed="false">Atendimento</button>
+          <button class="product-filter" type="button" data-filter="qualidade" aria-pressed="false">Qualidade</button>
+          <button class="product-filter" type="button" data-filter="automacao" aria-pressed="false">Automação</button>
+          <button class="product-filter" type="button" data-filter="dados" aria-pressed="false">Dados</button>
+          <button class="product-filter" type="button" data-filter="comercial" aria-pressed="false">Comercial</button>
+        </div>
+        <p class="product-filter-count" id="productCount" role="status" aria-live="polite">10 soluções</p>
+      </div>
+
       <div class="product-grid product-grid--links" id="productGrid">
-        <a class="product-card product-card--featured" href="./produto.html?produto=callia">
+        <a data-tilt="7" class="product-card product-card--featured" href="./produto-callia.html" data-categories="voz atendimento" style="--glow: 70% 22%">
           <div class="product-visual callia-preview image-preview" aria-hidden="true">
             <img src="./assets/DDM CALL IA.png" alt="">
           </div>
-          <span>01 / Voz</span>
+          <span class="product-kicker">01 / Voz</span>
           <h3>Call IA</h3>
           <p>Agentes de voz com IA para cobrança, vendas, atendimento e operações ativas ou receptivas.</p>
-          <div class="product-actions">
-            <strong>Ver produto</strong>
-            <small>Explorar demonstração ↗</small>
-          </div>
+          <em class="product-benefit">Escala de atendimento sem ampliar o time</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=qualiddm">
+        <a data-tilt="7" class="product-card" href="./produto-qualiddm.html" data-categories="qualidade" style="--glow: 80% 18%">
           <div class="product-visual image-preview quality-screen" aria-hidden="true">
             <img src="./assets/QUALIDDM.jpeg" alt="">
           </div>
-          <span>02 / Monitoria com IA</span>
+          <span class="product-kicker">02 / Monitoria com IA</span>
           <h3>QualiDDM</h3>
           <p>Monitoria e auditoria de voz e chat com IA para qualidade, compliance e inteligência operacional.</p>
+          <em class="product-benefit">Monitoria de todas as conversas, não por amostragem</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=creator">
+        <a data-tilt="7" class="product-card" href="./produto-creator.html" data-categories="automacao" style="--glow: 80% 18%">
           <div class="product-visual image-preview creator-screen" aria-hidden="true">
             <img src="./assets/DDM CREATOR.png" alt="">
           </div>
-          <span>03 / Criação de imagens</span>
+          <span class="product-kicker">03 / Criação de imagens</span>
           <h3>Creator</h3>
           <p>Criação de imagens com IA para campanhas, comunicação e produção visual alinhada à identidade da marca.</p>
+          <em class="product-benefit">Peças no padrão da marca, sem fila de criação</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=dashboard">
+        <a data-tilt="7" class="product-card" href="./produto-dashboard.html" data-categories="dados" style="--glow: 80% 18%">
           <div class="product-visual image-preview dashboard-screen" aria-hidden="true">
             <img src="./assets/DASHBOARD CREATOR.jpeg" alt="">
           </div>
-          <span>04 / Dados &amp; dashboards</span>
+          <span class="product-kicker">04 / Dados &amp; dashboards</span>
           <h3>Dashboard Creator</h3>
           <p>Transforme dados e planilhas em dashboards, KPIs e análises executivas orientadas ao negócio.</p>
+          <em class="product-benefit">Da planilha crua ao painel executivo</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=leads">
+        <a data-tilt="7" class="product-card" href="./produto-leads.html" data-categories="comercial" style="--glow: 80% 18%">
           <div class="product-visual image-preview lead-screen" aria-hidden="true">
             <img src="./assets/EXTRATOR DE LEADS.jpeg" alt="">
           </div>
-          <span>05 / Comercial</span>
+          <span class="product-kicker">05 / Comercial</span>
           <h3>Extrator de Leads</h3>
           <p>Encontre, qualifique e enriqueça leads para acelerar a prospecção e aumentar a eficiência comercial.</p>
+          <em class="product-benefit">Lista qualificada pronta para o time atacar</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=crm">
+        <a data-tilt="7" class="product-card" href="./produto-crm.html" data-categories="atendimento" style="--glow: 80% 18%">
           <div class="product-visual image-preview crm-screen" aria-hidden="true">
             <img src="./assets/OMNI CRM DDM.png" alt="">
           </div>
-          <span>06 / Atendimento</span>
+          <span class="product-kicker">06 / Atendimento</span>
           <h3>Omni CRM</h3>
           <p>Centralize atendimento, WhatsApp, equipes, automações e gestão operacional em uma única plataforma.</p>
+          <em class="product-benefit">Um só lugar para atendimento e gestão</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=mail">
+        <a data-tilt="7" class="product-card" href="./produto-mail.html" data-categories="automacao atendimento" style="--glow: 80% 18%">
           <div class="product-visual image-preview mail-screen" aria-hidden="true">
             <img src="./assets/DDM BACKOFFICE.jpeg" alt="">
           </div>
-          <span>07 / Automação de e-mail</span>
+          <span class="product-kicker">07 / Automação de e-mail</span>
           <h3>Mail IA</h3>
           <p>Automatize atendimento e backoffice por e-mail com IA, conhecimento corporativo e controle operacional.</p>
+          <em class="product-benefit">Caixa de entrada que se resolve sozinha</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card" href="./produto.html?produto=labs">
+        <a data-tilt="7" class="product-card" href="./produto-labs.html" data-categories="automacao dados" style="--glow: 80% 18%">
           <div class="product-visual image-preview labs-screen" aria-hidden="true">
             <img src="./assets/DDM LABS.png" alt="">
           </div>
-          <span>08 / Hub corporativo</span>
+          <span class="product-kicker">08 / Hub corporativo</span>
           <h3>DDM Labs</h3>
           <p>Centralize agentes de IA, automações, dashboards e ferramentas digitais em um único ecossistema corporativo.</p>
+          <em class="product-benefit">Todos os agentes sob um mesmo acesso</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-        <a class="product-card product-card--wide" href="./produto.html?produto=whatsapp">
+        <a data-tilt="7" class="product-card product-card--wide product-card--spotlight" href="./produto-whatsapp.html" data-categories="voz comercial" style="--glow: 74% 68%">
           <div class="product-visual image-preview whatsapp-screen" aria-hidden="true">
             <img src="./assets/DDM CALL IA WHATSAPP.png" alt="">
           </div>
-          <span>09 / Voz em escala</span>
+          <span class="product-kicker">09 / Voz em escala</span>
           <h3>Call IA WhatsApp</h3>
-          <p><strong>Milhares de conversas. Uma operação.</strong> Agente de voz com IA para chamadas via WhatsApp em escala, com personalização, campanhas e acompanhamento operacional.</p>
+          <p class="product-lead-line">Milhares de conversas. Uma operação.</p>
+          <p>Agente de voz com IA para chamadas via WhatsApp em escala, com personalização, campanhas e acompanhamento operacional.</p>
+          <em class="product-benefit">Campanhas de voz simultâneas no canal que o cliente já usa</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
-      </div>
-    </section>
-
-    <section class="proof-band">
-      <div class="proof-inner">
-        <div>
-          <span>OPERAÇÃO CONECTADA</span>
-          <h2>Voz, chat, dados e automação em uma experiência única.</h2>
-        </div>
-        <div class="proof-grid">
-          <article><b>CRM</b><p>Registro de contato, status, fila e histórico.</p></article>
-          <article><b>WhatsApp</b><p>Continuidade da conversa em canais digitais.</p></article>
-          <article><b>Dashboards</b><p>Indicadores de conversa, desfecho e qualidade.</p></article>
-          <article><b>Regras</b><p>Fluxos de negócio, transferência e próxima ação.</p></article>
-        </div>
+        <a data-tilt="7" class="product-card product-card--wide" href="./produto-lembretes.html" data-categories="voz comercial" style="--glow: 74% 68%">
+          <div class="product-visual image-preview reminder-screen" aria-hidden="true">
+            <img src="./assets/agente de lembrete - capa.jpeg" alt="">
+          </div>
+          <span class="product-kicker">10 / Voz e recuperação</span>
+          <h3>Agente de Lembretes</h3>
+          <p class="product-lead-line">Lembrar, negociar e confirmar.</p>
+          <p>Agente de voz com IA para cobrança preventiva e recuperação de crédito, com negociação, confirmação de pagamento e disparo de comprovante.</p>
+          <em class="product-benefit">Da régua de cobrança ao acordo confirmado</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
+        </a>
       </div>
     </section>
 
@@ -364,6 +434,7 @@
             <div class="interest-options">
               <label><input type="checkbox" name="interesse[]" value="DDM Call IA"><span>DDM Call IA</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM Call IA WhatsApp"><span>Call IA WhatsApp</span></label>
+              <label><input type="checkbox" name="interesse[]" value="DDM Agente de Lembretes"><span>Agente de Lembretes</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM CRM"><span>Omni CRM</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM Mail IA"><span>Mail IA</span></label>
               <label><input type="checkbox" name="interesse[]" value="QualiDDM"><span>QualiDDM</span></label>
@@ -431,6 +502,7 @@
     <p>DDM AI Hub - produtos de IA, automação e inteligência operacional.</p>
   </footer>
 
-  <script src="./app.js"></script>
+  <script src="./interactions.js?v=20260901m"></script>
+  <script src="./app.js?v=20260901m"></script>
 </body>
 </html>

@@ -96,6 +96,110 @@ function setIntegrationMode() {
     : "Experimente a jornada de voz e veja como ela pode se adaptar ao seu processo.";
 }
 
+/* ------------------------------------------------------------
+   Waveform ligado ao áudio da chamada.
+   Em chamada real o nível vem do evento volume-level da Vapi; na
+   simulação usamos um envelope sintético, e a barra deixa claro
+   que ali não há áudio de verdade.
+   ------------------------------------------------------------ */
+const waveform = $("#waveform");
+const waveBars = waveform ? $$("#waveform i") : [];
+const waveHistory = new Array(waveBars.length).fill(0);
+const clampUnit = (value) => Math.min(1, Math.max(0, value));
+
+let waveTarget = 0;
+let waveSmoothed = 0;
+let waveFrame = null;
+let waveSynthetic = false;
+
+function paintWave() {
+  waveSmoothed += (waveTarget - waveSmoothed) * 0.32;
+
+  if (waveSynthetic) {
+    /* envelope irregular para não parecer um metrônomo */
+    const now = performance.now() / 1000;
+    const noise = (Math.sin(now * 7.3) + Math.sin(now * 11.7)) / 2;
+    waveTarget = clampUnit(0.45 + noise * 0.4);
+  }
+
+  waveHistory.push(waveSmoothed);
+  waveHistory.shift();
+
+  waveBars.forEach((bar, index) => {
+    const level = waveHistory[index] || 0;
+    bar.style.height = `${(10 + level * 32).toFixed(1)}px`;
+    bar.style.opacity = (0.4 + level * 0.6).toFixed(2);
+  });
+
+  waveFrame = requestAnimationFrame(paintWave);
+}
+
+function startWave({ synthetic = false } = {}) {
+  if (!waveBars.length) return;
+  waveSynthetic = synthetic;
+  waveform.classList.add("running");
+  if (!waveFrame) waveFrame = requestAnimationFrame(paintWave);
+}
+
+function stopWave() {
+  waveSynthetic = false;
+  waveTarget = 0;
+  if (waveFrame) {
+    cancelAnimationFrame(waveFrame);
+    waveFrame = null;
+  }
+  waveform?.classList.remove("running");
+  waveHistory.fill(0);
+  waveBars.forEach((bar) => {
+    bar.style.height = "";
+    bar.style.opacity = "";
+  });
+}
+
+function setWaveLevel(level) {
+  waveSynthetic = false;
+  waveTarget = clampUnit(Number(level) || 0);
+}
+
+/* ------------------------------------------------------------
+   Estado do agente: ouvindo → processando → respondendo.
+   ------------------------------------------------------------ */
+function setAgentState(state) {
+  const steps = $$("#agentStates li");
+  if (!steps.length) return;
+  steps.forEach((step) => step.classList.toggle("is-active", step.dataset.state === state));
+  $("#agentStates")?.classList.toggle("is-idle", !state);
+}
+
+/* ------------------------------------------------------------
+   Transcrição surgindo progressivamente.
+   ------------------------------------------------------------ */
+const prefersStill = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function typeInto(target, text, speed = 16) {
+  if (prefersStill.matches) {
+    target.textContent = text;
+    return;
+  }
+
+  let index = 0;
+  target.textContent = "";
+  target.classList.add("is-typing");
+
+  const step = () => {
+    /* alguns caracteres por quadro para textos longos não arrastarem */
+    index = Math.min(text.length, index + (text.length > 90 ? 3 : 2));
+    target.textContent = text.slice(0, index);
+    if (index < text.length) {
+      timers.push(setTimeout(step, speed));
+      return;
+    }
+    target.classList.remove("is-typing");
+  };
+
+  step();
+}
+
 function addLine(role, text) {
   const transcript = $("#transcript");
   const empty = transcript.querySelector(".transcript-empty");
@@ -116,8 +220,8 @@ function addLine(role, text) {
     </div>
     <p></p>
   `;
-  message.querySelector("p").textContent = text;
   transcript.appendChild(message);
+  typeInto(message.querySelector("p"), text);
   transcript.scrollTop = transcript.scrollHeight;
 }
 
@@ -146,7 +250,6 @@ function setRunning(value) {
   running = value;
   $("#callButton").classList.toggle("running", value);
   $("#callCore").classList.toggle("running", value);
-  $("#waveform")?.classList.toggle("running", value);
   $(".call-label").textContent = value ? "Encerrar chamada" : "Iniciar chamada";
   $("#voiceStatus").innerHTML = value
     ? "<i></i>Chamada em andamento"
@@ -155,6 +258,8 @@ function setRunning(value) {
     startDuration();
   } else {
     stopDuration();
+    stopWave();
+    setAgentState(null);
     setTranscriptStatus("Pronto");
   }
 }
@@ -164,10 +269,21 @@ function startSimulation() {
   resetTranscript();
   setRunning(true);
   transcriptSets[selectedScenario].forEach(([role, text], index) => {
+    const at = 700 + index * 1300;
+
+    /* antes de cada fala, o agente aparece processando */
     timers.push(setTimeout(() => {
-      setTranscriptStatus(role === "ai" ? "DDM AI respondendo" : "Você está falando", "status-speaking");
+      setAgentState("thinking");
+      stopWave();
+    }, Math.max(0, at - 380)));
+
+    timers.push(setTimeout(() => {
+      const isAi = role === "ai";
+      setAgentState(isAi ? "speaking" : "listening");
+      setTranscriptStatus(isAi ? "DDM AI respondendo" : "Você está falando", "status-speaking");
+      startWave({ synthetic: true });
       addLine(role, text);
-    }, 700 + index * 1300));
+    }, at));
   });
   timers.push(setTimeout(() => {
     setRunning(false);
@@ -186,6 +302,8 @@ async function getVapiClient() {
     realCall = true;
     resetTranscript();
     setRunning(true);
+    setAgentState("listening");
+    startWave();
     setTranscriptStatus("Chamada ativa", "status-speaking");
     addLine("ai", "Chamada conectada. A conversa será acompanhada em tempo real aqui.");
   });
@@ -195,22 +313,34 @@ async function getVapiClient() {
     realCall = false;
   });
 
+  /* nível de áudio real da chamada alimentando o waveform */
+  client.on("volume-level", (level) => {
+    if (!running) return;
+    startWave();
+    setWaveLevel(level);
+  });
+
   client.on("speech-start", () => {
     $("#callCore").classList.add("running");
-    $("#waveform")?.classList.add("running");
+    setAgentState("speaking");
+    startWave();
     setTranscriptStatus("Áudio detectado", "status-speaking");
   });
 
   client.on("speech-end", () => {
     if (!running) return;
     $("#callCore").classList.remove("running");
-    $("#waveform")?.classList.remove("running");
+    setAgentState("thinking");
+    setWaveLevel(0);
     setTranscriptStatus("Processando", "status-speaking");
   });
 
   client.on("message", (message) => {
     if (message?.type !== "transcript" || !message.transcript) return;
-    if (message.transcriptType === "partial") return;
+    if (message.transcriptType === "partial") {
+      if (message.role !== "assistant") setAgentState("listening");
+      return;
+    }
     addLine(message.role === "assistant" ? "ai" : "user", message.transcript);
   });
 
@@ -315,6 +445,7 @@ async function sendChatMessage(text) {
   submit.disabled = true;
 
   const loading = addChatMessage("model", "Assistente DDM está analisando...", "loading");
+  $(".chat-window")?.classList.add("is-thinking");
 
   try {
     const response = await fetch("./chat.php", {
@@ -342,6 +473,7 @@ async function sendChatMessage(text) {
     loading.classList.remove("loading");
     loading.classList.add("error");
   } finally {
+    $(".chat-window")?.classList.remove("is-thinking");
     input.disabled = false;
     submit.disabled = false;
     input.focus();
@@ -419,3 +551,116 @@ $("#contactForm")?.addEventListener("submit", async (event) => {
 });
 
 setIntegrationMode();
+
+/* ------------------------------------------------------------
+   Glow laranja acompanhando o scroll nas seções escuras.
+   ------------------------------------------------------------ */
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const glowLayer = $(".scroll-glow");
+const glowZones = $$("[data-glow]");
+let glowQueued = false;
+
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+function updateGlow() {
+  glowQueued = false;
+  const viewport = window.innerHeight || 1;
+  let intensity = 0;
+  let center = 0.5;
+
+  glowZones.forEach((zone) => {
+    const box = zone.getBoundingClientRect();
+    const visible = Math.min(box.bottom, viewport) - Math.max(box.top, 0);
+    if (visible <= 0 || box.height <= 0) return;
+
+    const coverage = clamp(visible / viewport, 0, 1);
+    if (coverage <= intensity) return;
+
+    intensity = coverage;
+    const progress = clamp((viewport * 0.5 - box.top) / box.height, 0, 1);
+    center = 0.2 + progress * 0.6;
+  });
+
+  glowLayer.style.setProperty("--glow-a", (intensity * 0.62).toFixed(3));
+  glowLayer.style.setProperty("--glow-y", `${(center * 100).toFixed(2)}%`);
+}
+
+function requestGlow() {
+  if (glowQueued) return;
+  glowQueued = true;
+  requestAnimationFrame(updateGlow);
+}
+
+if (glowLayer && glowZones.length && !reduceMotion.matches) {
+  window.addEventListener("scroll", requestGlow, { passive: true });
+  window.addEventListener("resize", requestGlow, { passive: true });
+  updateGlow();
+} else if (glowLayer) {
+  glowLayer.remove();
+}
+
+/* ------------------------------------------------------------
+   Filtro de categorias da vitrine de produtos.
+   ------------------------------------------------------------ */
+const productGrid = $("#productGrid");
+const productFilters = $$(".product-filter");
+const productCount = $("#productCount");
+const LEAVE_MS = 260;
+
+function applyProductFilter(filter) {
+  if (!productGrid) return;
+
+  const cards = $$("#productGrid .product-card");
+  const instant = reduceMotion.matches;
+  let shown = 0;
+
+  cards.forEach((card) => {
+    const categories = (card.dataset.categories || "").split(" ");
+    const matches = filter === "todos" || categories.includes(filter);
+
+    card.classList.remove("is-entering");
+
+    if (matches) {
+      const wasHidden = card.hidden;
+      card.classList.remove("is-leaving");
+      card.hidden = false;
+      card.style.setProperty("--enter-delay", `${shown * 45}ms`);
+      shown += 1;
+
+      if (wasHidden && !instant) {
+        requestAnimationFrame(() => card.classList.add("is-entering"));
+      }
+      return;
+    }
+
+    if (card.hidden) return;
+
+    if (instant) {
+      card.hidden = true;
+      return;
+    }
+
+    card.classList.add("is-leaving");
+    setTimeout(() => {
+      if (card.classList.contains("is-leaving")) card.hidden = true;
+    }, LEAVE_MS);
+  });
+
+  productGrid.classList.toggle("is-filtered", filter !== "todos");
+
+  if (productCount) {
+    productCount.textContent =
+      shown === cards.length ? `${cards.length} soluções` : `${shown} de ${cards.length} soluções`;
+  }
+}
+
+productFilters.forEach((button) => {
+  button.addEventListener("click", () => {
+    productFilters.forEach((item) => {
+      const active = item === button;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    applyProductFilter(button.dataset.filter);
+  });
+});

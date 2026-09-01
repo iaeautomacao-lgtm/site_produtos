@@ -1,191 +1,407 @@
-const productDetails = {
-  callia: {
-    tag: "VOZ · IA",
-    title: "Call IA",
-    lead: "Agentes de voz com IA para cobrança, vendas, atendimento e operações ativas ou receptivas, com condução natural e registro operacional.",
-    image: "./assets/DDM CALL IA.png",
-    benefitsTitle: "Voz inteligente para operações de alto volume.",
-    benefits: [
-      ["01", "Converse", "Conduza chamadas com abordagem natural e aderente ao objetivo da operação."],
-      ["02", "Registre", "Transforme cada chamada em desfecho, histórico e dado operacional."],
-      ["03", "Escalone", "Execute campanhas ativas ou receptivas com consistência e disponibilidade."]
-    ],
-    flow: ["Cenário", "Conversa", "Desfecho", "Indicadores"],
-    fit: "Cobrança · Atendimento · Vendas · SAC",
-    interest: "DDM Call IA"
-  },
-  qualiddm: {
-    tag: "MONITORIA COM IA",
-    title: "QualiDDM",
-    lead: "Monitoria e auditoria de voz e chat com IA para qualidade, compliance e inteligência operacional em escala.",
-    image: "./assets/QUALIDDM.jpeg",
-    benefitsTitle: "Qualidade analisada com mais velocidade e profundidade.",
-    benefits: [
-      ["01", "Audite", "Avalie conversas com critérios consistentes e rastreáveis."],
-      ["02", "Pontue", "Identifique padrões, riscos, oportunidades e aderência ao processo."],
-      ["03", "Evolua", "Transforme atendimento em plano de melhoria e inteligência operacional."]
-    ],
-    flow: ["Conversa", "Análise", "Score", "Plano de ação"],
-    fit: "Qualidade · Compliance · Atendimento · Operação",
-    interest: "QualiDDM"
-  },
-  creator: {
-    tag: "CRIAÇÃO DE IMAGENS · IA",
-    title: "Creator",
-    lead: "Criação de imagens com IA para campanhas, comunicação e produção visual alinhada à identidade da marca.",
-    image: "./assets/DDM CREATOR.png",
-    benefitsTitle: "Produção visual com velocidade e consistência.",
-    benefits: [
-      ["01", "Crie", "Produza imagens e variações para campanhas em poucos minutos."],
-      ["02", "Padronize", "Mantenha a identidade visual com orientação de marca."],
-      ["03", "Escalone", "Acelere a produção para canais, peças e públicos diferentes."]
-    ],
-    flow: ["Briefing", "Geração", "Ajustes", "Aprovação"],
-    fit: "Marketing · Social Media · Comercial · Campanhas",
-    interest: "DDM Creator"
-  },
-  dashboard: {
-    tag: "DADOS & DASHBOARDS",
-    title: "Dashboard Creator",
-    lead: "Transforme dados e planilhas em dashboards, KPIs e análises executivas orientadas ao negócio.",
-    image: "./assets/DASHBOARD CREATOR.jpeg",
-    benefitsTitle: "Dados mais claros para decisões mais rápidas.",
-    benefits: [
-      ["01", "Organize", "Conecte informações dispersas em uma visão executiva."],
-      ["02", "Visualize", "Acompanhe KPIs com dashboards claros e objetivos."],
-      ["03", "Decida", "Transforme planilhas e dados em leitura de negócio."]
-    ],
-    flow: ["Dados", "Modelo", "Dashboard", "Insight"],
-    fit: "Gestão · Financeiro · Operação · Diretoria",
-    interest: "DDM Dashboard Creator"
-  },
-  leads: {
-    tag: "COMERCIAL",
-    title: "Extrator de Leads",
-    lead: "Encontre, qualifique e enriqueça leads para acelerar a prospecção e aumentar a eficiência comercial.",
-    image: "./assets/EXTRATOR DE LEADS.jpeg",
-    benefitsTitle: "Prospecção com mais foco e menos trabalho manual.",
-    benefits: [
-      ["01", "Encontre", "Mapeie oportunidades com critérios comerciais definidos."],
-      ["02", "Qualifique", "Organize leads por perfil, segmento e potencial."],
-      ["03", "Acelere", "Apoie o time comercial com bases mais úteis e acionáveis."]
-    ],
-    flow: ["Busca", "Enriquecimento", "Qualificação", "Lista comercial"],
-    fit: "Comercial · SDR · Marketing · Prospecção",
-    interest: "DDM Extrator de Leads"
-  },
-  crm: {
-    tag: "ATENDIMENTO",
-    title: "Omni CRM",
-    lead: "Centralize atendimento, WhatsApp, equipes, automações e gestão operacional em uma única plataforma.",
-    image: "./assets/OMNI CRM DDM.png",
-    benefitsTitle: "Atendimento centralizado para equipes e canais.",
-    benefits: [
-      ["01", "Centralize", "Una conversas, histórico e filas em uma única operação."],
-      ["02", "Automatize", "Reduza tarefas repetitivas com fluxos e regras."],
-      ["03", "Gerencie", "Acompanhe equipe, SLA, status e produtividade."]
-    ],
-    flow: ["Canal", "Fila", "Atendimento", "Gestão"],
-    fit: "Atendimento · WhatsApp · Equipes · Operação",
-    interest: "DDM CRM"
-  },
-  mail: {
-    tag: "AUTOMAÇÃO DE E-MAIL",
-    title: "Mail IA",
-    lead: "Automatize atendimento e backoffice por e-mail com IA, conhecimento corporativo e controle operacional.",
-    image: "./assets/DDM BACKOFFICE.jpeg",
-    benefitsTitle: "E-mails tratados com contexto e padrão operacional.",
-    benefits: [
-      ["01", "Classifique", "Organize demandas por assunto, prioridade e área responsável."],
-      ["02", "Responda", "Apoie respostas com base em conhecimento corporativo."],
-      ["03", "Controle", "Dê visibilidade ao volume, prazos e gargalos do backoffice."]
-    ],
-    flow: ["Entrada", "Classificação", "Resposta", "Controle"],
-    fit: "Backoffice · Atendimento · Operação · E-mail",
-    interest: "DDM Mail IA"
-  },
-  labs: {
-    tag: "HUB CORPORATIVO DE IA",
-    title: "DDM Labs",
-    lead: "Plataforma integrada que centraliza agentes de IA, fluxos automatizados, dashboards analíticos e ferramentas digitais em um ecossistema único.",
-    image: "./assets/DDM LABS.png",
-    benefitsTitle: "IA estratégica e automação corporativa em um só ecossistema.",
-    benefits: [
-      ["01", "Centralize", "Acesso unificado a agentes inteligentes, automações e painéis analíticos em um só ambiente corporativo."],
-      ["02", "Aplique", "Ferramentas práticas para reduzir trabalho braçal, padronizar execuções e elevar a eficiência das equipes."],
-      ["03", "Escale", "Arquitetura modular que se adapta às regras de negócio e se integra aos processos existentes."]
-    ],
-    flow: ["Agentes", "Automação", "Dashboards", "Decisão"],
-    fit: "Operação · Backoffice · Gestão · Times estratégicos",
-    interest: "DDM Labs"
-  },
-  whatsapp: {
-    tag: "VOZ EM ESCALA",
-    title: "Call IA WhatsApp",
-    lead: "Agente de voz com IA para chamadas via WhatsApp em escala, com personalização, campanhas e acompanhamento operacional.",
-    image: "./assets/DDM CALL IA WHATSAPP.png",
-    benefitsTitle: "Campanhas de voz pelo WhatsApp com acompanhamento.",
-    benefits: [
-      ["01", "Dispare", "Execute campanhas de voz diretamente pelo WhatsApp."],
-      ["02", "Personalize", "Adapte abordagem, regras e objetivo por público."],
-      ["03", "Acompanhe", "Monitore conversas, status e resultados em tempo real."]
-    ],
-    flow: ["Campanha", "WhatsApp", "Chamada", "Resultado"],
-    fit: "Cobrança · Vendas · Campanhas · Relacionamento",
-    interest: "DDM Call IA WhatsApp"
+/* Animações dos módulos "Veja a IA trabalhando".
+   O conteúdo já vem no HTML (gerado por build-produtos.mjs); aqui só damos
+   movimento a ele. Sem JS a página continua completa e legível. */
+
+const $ = (selector, scope = document) => scope.querySelector(selector);
+const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+/* Marca que o JS assumiu: só então os módulos partem do estado escondido.
+   Sem JS a página continua inteira e legível. */
+document.documentElement.classList.add("js-anim");
+
+/* Roda `start` quando o bloco entra na tela e devolve um cancelador ao sair,
+   para nenhuma animação ficar girando fora de vista. */
+function whenVisible(element, start, fallback) {
+  if (!element) return;
+
+  if (typeof IntersectionObserver !== "function") {
+    if (fallback) fallback();
+    return;
   }
-};
 
-const params = new URLSearchParams(window.location.search);
-const key = params.get("produto") || "callia";
-const detail = productDetails[key] || productDetails.callia;
+  let stop = null;
+  /* O observer entrega um primeiro retorno logo ao observar, mesmo com o
+     elemento fora da tela — é isso que confirma que ele está funcionando. */
+  let reported = false;
 
-document.title = `${detail.title} | DDM AI Hub`;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      reported = true;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !stop) {
+          stop = start() || (() => {});
+        } else if (!entry.isIntersecting && stop) {
+          stop();
+          stop = null;
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+  observer.observe(element);
 
-const setText = (id, text) => {
-  const element = document.getElementById(id);
-  if (element) element.textContent = text;
-};
+  /* Rede de segurança: se o observer nunca reportar nada, o conteúdo aparece
+     mesmo assim. Nenhuma seção pode ficar invisível por causa da animação. */
+  setTimeout(() => {
+    if (!reported && fallback) fallback();
+  }, 4000);
+}
 
-const setImage = (id, src, alt) => {
-  const image = document.getElementById(id);
-  if (!image) return;
-  image.src = src;
-  image.alt = alt;
-};
+/* Sequência que percorre os passos e recomeça depois de uma pausa. */
+function sequence(steps, { interval, hold = 1600, onStep, onReset }) {
+  let index = 0;
+  let timer = null;
 
-setText("detailTag", detail.tag);
-setText("detailTitle", detail.title);
-setText("detailLead", detail.lead);
-setText("detailBrowser", detail.title);
-setText("benefitTitle", detail.benefitsTitle);
-setText("flowTitle", `Como o ${detail.title} entra na rotina.`);
-setText("operationFit", detail.fit);
-setText("finalTitle", `Quer ver o ${detail.title} na prática?`);
+  const tick = () => {
+    if (index < steps) {
+      onStep(index);
+      index += 1;
+      timer = setTimeout(tick, interval);
+      return;
+    }
+    index = 0;
+    timer = setTimeout(() => {
+      if (onReset) onReset();
+      tick();
+    }, hold);
+  };
 
-setImage("detailImage", detail.image, `Interface do ${detail.title}`);
+  tick();
+  return () => clearTimeout(timer);
+}
 
-const benefitGrid = document.getElementById("benefitGrid");
-benefitGrid.innerHTML = "";
-detail.benefits.forEach(([number, title, text]) => {
-  const card = document.createElement("article");
-  card.innerHTML = `<span>${number}</span><h3>${title}</h3><p>${text}</p>`;
-  benefitGrid.appendChild(card);
-});
+const setOn = (element, on) => element.classList.toggle("is-on", on);
 
-const flow = document.getElementById("detailFlow");
-flow.innerHTML = "";
-detail.flow.forEach((item, index) => {
-  const step = document.createElement("span");
-  step.textContent = item;
-  flow.appendChild(step);
-  if (index < detail.flow.length - 1) {
-    const arrow = document.createElement("i");
-    arrow.textContent = "→";
-    flow.appendChild(arrow);
+/* ---------- transcrição (Call IA) ---------- */
+function initTranscript(root) {
+  const lines = $$("[data-sc-step]", root);
+  if (!lines.length) return;
+
+  if (reduceMotion.matches) {
+    lines.forEach((line) => setOn(line, true));
+    return;
   }
-});
 
-const contactUrl = `./index.html?interest=${encodeURIComponent(detail.interest)}#contato`;
-document.getElementById("detailDemo").href = contactUrl;
-document.getElementById("finalContact").href = contactUrl;
+  whenVisible(
+    root,
+    () =>
+      sequence(lines.length, {
+        interval: 1100,
+        hold: 2600,
+        onStep: (index) => setOn(lines[index], true),
+        onReset: () => lines.forEach((line) => setOn(line, false))
+      }),
+    () => lines.forEach((line) => setOn(line, true))
+  );
+}
+
+/* ---------- campanha (Call IA WhatsApp) ---------- */
+function initCampaign(root) {
+  const states = (root.dataset.scStates || "").split("|").filter(Boolean);
+  const rows = $$(".sc-line-row", root);
+  if (!states.length || !rows.length) return;
+
+  if (reduceMotion.matches) return;
+
+  whenVisible(root, () => {
+    const timers = rows.map((row, rowIndex) => {
+      const label = $("[data-sc-state]", row);
+      let step = Number(row.dataset.scPhase || rowIndex % states.length);
+
+      const advance = () => {
+        step = (step + 1) % states.length;
+        label.textContent = states[step];
+        row.dataset.scPhase = String(step);
+      };
+
+      advance();
+      return setInterval(advance, 1500 + rowIndex * 260);
+    });
+
+    return () => timers.forEach(clearInterval);
+  });
+}
+
+/* ---------- score (QualiDDM) ---------- */
+function initScore(root) {
+  const dial = $(".sc-dial-value", root);
+  const steps = $$("[data-sc-step]", root);
+
+  if (reduceMotion.matches) {
+    if (dial) dial.style.setProperty("--dash", "86");
+    steps.forEach((step) => setOn(step, true));
+    return;
+  }
+
+  whenVisible(
+    root,
+    () => {
+      if (dial) dial.style.setProperty("--dash", "86");
+      return sequence(steps.length, {
+        interval: 420,
+        hold: 3000,
+        onStep: (index) => setOn(steps[index], true),
+        onReset: () => steps.forEach((step) => setOn(step, false))
+      });
+    },
+    () => {
+      if (dial) dial.style.setProperty("--dash", "86");
+      steps.forEach((step) => setOn(step, true));
+    }
+  );
+}
+
+/* ---------- galeria de formatos (Creator) ---------- */
+function initGallery(root) {
+  const tiles = $$("[data-sc-step]", root);
+  if (!tiles.length) return;
+
+  if (reduceMotion.matches) {
+    tiles.forEach((tile) => setOn(tile, true));
+    return;
+  }
+
+  whenVisible(
+    root,
+    () =>
+      sequence(tiles.length, {
+        interval: 620,
+        hold: 3200,
+        onStep: (index) => setOn(tiles[index], true),
+        onReset: () => tiles.forEach((tile) => setOn(tile, false))
+      }),
+    () => tiles.forEach((tile) => setOn(tile, true))
+  );
+}
+
+/* ---------- carrossel de visões (Dashboard Creator) ---------- */
+function initCarousel(root) {
+  const slides = $$(".sc-slide", root);
+  const dots = $$(".sc-dot", root);
+  if (!slides.length) return;
+
+  let current = 0;
+  let timer = null;
+
+  const show = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, position) => slide.classList.toggle("is-active", position === current));
+    dots.forEach((dot, position) => dot.classList.toggle("is-active", position === current));
+  };
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      show(index);
+      clearInterval(timer);
+      timer = null;
+    });
+  });
+
+  if (reduceMotion.matches) return;
+
+  whenVisible(root, () => {
+    timer = setInterval(() => show(current + 1), 3200);
+    return () => clearInterval(timer);
+  });
+}
+
+/* ---------- leads enriquecidos (Extrator) ---------- */
+function initLeads(root) {
+  const rows = $$("tbody tr", root);
+  if (!rows.length) return;
+
+  const cellsOf = (row) => $$(".sc-fill", row);
+
+  if (reduceMotion.matches) {
+    rows.forEach((row) => {
+      setOn(row, true);
+      cellsOf(row).forEach((cell) => setOn(cell, true));
+    });
+    return;
+  }
+
+  whenVisible(root, () => {
+    const total = rows.reduce((sum, row) => sum + 1 + cellsOf(row).length, 0);
+
+    return sequence(total, {
+      interval: 220,
+      hold: 2800,
+      onStep: (index) => {
+        let cursor = index;
+        for (const row of rows) {
+          const cells = cellsOf(row);
+          if (cursor === 0) {
+            setOn(row, true);
+            return;
+          }
+          if (cursor <= cells.length) {
+            setOn(cells[cursor - 1], true);
+            return;
+          }
+          cursor -= cells.length + 1;
+        }
+      },
+      onReset: () =>
+        rows.forEach((row) => {
+          setOn(row, false);
+          cellsOf(row).forEach((cell) => setOn(cell, false));
+        })
+    });
+  }, () =>
+    rows.forEach((row) => {
+      setOn(row, true);
+      cellsOf(row).forEach((cell) => setOn(cell, true));
+    })
+  );
+}
+
+/* ---------- filas de atendimento (Omni CRM) ---------- */
+function initQueue(root) {
+  const columns = $$("[data-sc-column] ul", root);
+  const template = $("[data-sc-tickets]", root);
+  if (columns.length < 2 || !template) return;
+
+  const source = Array.from(template.content.querySelectorAll(".sc-ticket"));
+  if (!source.length) return;
+
+  const seed = () => {
+    columns.forEach((column) => (column.innerHTML = ""));
+    source.forEach((ticket, index) => {
+      columns[index % columns.length].appendChild(ticket.cloneNode(true));
+    });
+  };
+
+  seed();
+  if (reduceMotion.matches) return;
+
+  whenVisible(root, () => {
+    let queued = 0;
+
+    const advance = () => {
+      /* Do fim para o começo: resolvido → atendimento → entrada. */
+      for (let index = columns.length - 1; index > 0; index -= 1) {
+        const from = columns[index - 1];
+        const to = columns[index];
+        const ticket = from.lastElementChild;
+        if (!ticket) continue;
+
+        ticket.classList.add("is-moving");
+        setTimeout(() => {
+          to.prepend(ticket);
+          ticket.classList.remove("is-moving");
+          ticket.classList.add("is-arriving");
+          setTimeout(() => ticket.classList.remove("is-arriving"), 400);
+        }, 220);
+      }
+
+      const last = columns[columns.length - 1];
+      while (last.children.length > 3) last.lastElementChild.remove();
+
+      /* Repõe a entrada para a fila nunca esvaziar. */
+      const incoming = source[queued % source.length].cloneNode(true);
+      queued += 1;
+      incoming.classList.add("is-arriving");
+      columns[0].prepend(incoming);
+      setTimeout(() => incoming.classList.remove("is-arriving"), 400);
+      while (columns[0].children.length > 3) columns[0].lastElementChild.remove();
+    };
+
+    const timer = setInterval(advance, 2200);
+    return () => clearInterval(timer);
+  });
+}
+
+/* ---------- e-mail classificado (Mail IA) ---------- */
+function initMail(root) {
+  const stages = $$("[data-sc-step]", root);
+  if (!stages.length) return;
+
+  if (reduceMotion.matches) {
+    stages.forEach((stage) => setOn(stage, true));
+    return;
+  }
+
+  whenVisible(
+    root,
+    () =>
+      sequence(stages.length, {
+        interval: 1100,
+        hold: 2400,
+        onStep: (index) => setOn(stages[index], true),
+        onReset: () => stages.forEach((stage) => setOn(stage, false))
+      }),
+    () => stages.forEach((stage) => setOn(stage, true))
+  );
+}
+
+/* ---------- módulos do hub (DDM Labs) ---------- */
+function initModules(root) {
+  const items = $$("[data-sc-step]", root);
+  if (!items.length) return;
+
+  if (reduceMotion.matches) {
+    items.forEach((item) => setOn(item, true));
+    return;
+  }
+
+  whenVisible(
+    root,
+    () =>
+      sequence(items.length, {
+        interval: 380,
+        hold: 2600,
+        onStep: (index) => setOn(items[index], true),
+        onReset: () => items.forEach((item) => setOn(item, false))
+      }),
+    () => items.forEach((item) => setOn(item, true))
+  );
+}
+
+const showcaseInits = {
+  transcript: initTranscript,
+  negotiation: initModules,
+  campaign: initCampaign,
+  score: initScore,
+  gallery: initGallery,
+  carousel: initCarousel,
+  leads: initLeads,
+  queue: initQueue,
+  mail: initMail,
+  modules: initModules
+};
+
+const showcase = $("[data-sc]");
+if (showcase) {
+  const init = showcaseInits[showcase.dataset.sc];
+  if (init) init(showcase);
+}
+
+/* Revela as seções conforme entram na tela. */
+const revealTargets = $$(".benefit-grid article, .detail-flow span, .detail-split-body > .browser-mockup");
+const canObserve = typeof IntersectionObserver === "function";
+if (revealTargets.length && canObserve && !reduceMotion.matches) {
+  let revealerReported = false;
+  const revealer = new IntersectionObserver(
+    (entries, observer) => {
+      revealerReported = true;
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2 }
+  );
+  revealTargets.forEach((target, index) => {
+    target.style.setProperty("--reveal-delay", `${(index % 5) * 70}ms`);
+    revealer.observe(target);
+  });
+  setTimeout(() => {
+    if (revealerReported) return;
+    revealTargets.forEach((target) => target.classList.add("is-revealed"));
+  }, 4000);
+} else {
+  revealTargets.forEach((target) => target.classList.add("is-revealed"));
+}
