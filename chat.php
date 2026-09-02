@@ -47,7 +47,7 @@ $prompts = [
 ];
 
 $systemInstruction = ($prompts[$scenario] ?? $prompts['atendimento'])
-    . ' Responda sempre em português do Brasil, com no máximo 900 caracteres, tom premium, humano e comercial. Seja direto. Nunca diga que é Gemini, Google ou modelo de linguagem.';
+    . ' Responda sempre em português do Brasil, com no máximo 420 caracteres no total, divididos em 2 ou 3 parágrafos curtos separados por uma linha em branco. Cada parágrafo com no máximo duas frases. Tom premium, humano e comercial. Seja direto e nunca use listas ou markdown. Nunca diga que é Gemini, Google ou modelo de linguagem.';
 
 $contents = [];
 foreach (array_slice($history, -8) as $item) {
@@ -80,7 +80,7 @@ $requestBody = [
     'generationConfig' => [
         'temperature' => 0.55,
         'topP' => 0.9,
-        'maxOutputTokens' => 320,
+        'maxOutputTokens' => 220,
     ],
 ];
 

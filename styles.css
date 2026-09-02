@@ -638,30 +638,141 @@ nav a:hover { color: #fff; }
   border-radius: 18px 6px 18px 18px;
 }
 
-.chat-lab { grid-template-columns: .78fr 1.22fr; padding: 44px; gap: 34px; }
+.chat-lab { grid-template-columns: .68fr 1.32fr; padding: 26px; gap: 40px; align-items: center; }
 .chat-copy { align-self: center; }
-.chat-copy-status {
+.chat-eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+/* Acordito recortado (webm com alpha): sem caixa, flutuando sobre o fundo. */
+.acordito-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.acordito-stage {
   position: relative;
-  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 240px;
+  margin-left: -12px;
+}
+.acordito-glow {
+  position: absolute;
+  width: 146px;
+  height: 146px;
+  border-radius: 50%;
+  background: var(--orange);
+  filter: blur(65px);
+  opacity: .18;
+  transition: opacity .45s ease, transform .45s ease;
+}
+.acordito-video {
+  position: relative;
+  z-index: 2;
+  width: 224px;
+  height: 224px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 24px 34px rgba(0,0,0,.28))
+    drop-shadow(0 0 25px rgba(255,87,6,.12));
+  animation: acordito-float 5s ease-in-out infinite;
+}
+.acordito-status {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: -22px 0 0 6px;
+  padding: 7px 12px;
+  background: rgba(20,20,21,.82);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 999px;
+  color: #aaa;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  transition: color .3s ease, border-color .3s ease;
+}
+.acordito-status span {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  border-radius: 50%;
+  background: #35c76f;
+  transition: background .3s ease;
+}
+
+/* estados: idle -> pensando -> respondendo */
+.acordito-block[data-state="thinking"] .acordito-glow { opacity: .32; transform: scale(1.12); }
+.acordito-block[data-state="responding"] .acordito-glow { opacity: .26; }
+.acordito-block[data-state="thinking"] .acordito-video { animation: acordito-think .9s ease-in-out infinite; }
+.acordito-block[data-state="thinking"] .acordito-status,
+.acordito-block[data-state="responding"] .acordito-status {
+  color: #fff;
+  border-color: rgba(255,87,6,.4);
+}
+/* pensando troca o ponto pelo losango, como no restante do site */
+.acordito-block[data-state="thinking"] .acordito-status span {
+  width: auto;
+  flex: 0 0 auto;
+  background: transparent;
+  line-height: 1;
+}
+.acordito-block[data-state="thinking"] .acordito-status span::before {
+  content: "✦";
+  color: var(--orange);
+  font-size: 9px;
+  animation: acordito-blink .8s ease-in-out infinite;
+}
+.acordito-block[data-state="responding"] .acordito-status span {
+  background: var(--orange);
+  box-shadow: 0 0 8px rgba(255,87,6,.7);
+}
+@keyframes acordito-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .25; }
+}
+
+/* indicador de digitacao no lugar do texto "analisando..." */
+.chat-message.loading .message-bubble {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
+  padding: 16px;
 }
-.chat-copy-status img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,.28));
+.chat-message.loading .message-bubble i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b9b5b0;
+  animation: chat-dot 1.1s ease-in-out infinite;
 }
+.chat-message.loading .message-bubble i:nth-child(2) { animation-delay: .16s; }
+.chat-message.loading .message-bubble i:nth-child(3) { animation-delay: .32s; }
+@keyframes chat-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+
 .chat-window {
   width: 100%;
-  height: 610px;
+  height: 664px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: #f6f5f2;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 26px;
+  border: 0;
+  border-radius: 22px;
   color: #111;
   box-shadow:
     0 30px 80px rgba(0,0,0,.28),
@@ -737,7 +848,69 @@ nav a:hover { color: #fff; }
   background: #28b962;
   border-radius: 50%;
 }
+/* Painel com poucas mensagens: marca d'agua no centro, some quando a conversa anda. */
+.chat-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.chat-ghost {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  pointer-events: none;
+  transition: opacity .55s ease, transform .55s ease;
+}
+.chat-body.has-conversation .chat-ghost {
+  opacity: 0;
+  transform: scale(.96);
+}
+.chat-ghost-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: var(--orange);
+  filter: blur(85px);
+  opacity: .05;
+}
+.chat-ghost-label {
+  position: relative;
+  color: #b3aea8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.chat-ghost-lines {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  width: 200px;
+}
+.chat-ghost-lines i {
+  width: var(--w);
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(23,23,25,.06);
+  animation: ghost-pulse 3.6s ease-in-out infinite;
+}
+.chat-ghost-lines i:nth-child(2) { animation-delay: .5s; }
+.chat-ghost-lines i:nth-child(3) { animation-delay: 1s; }
+@keyframes ghost-pulse {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
 .chat-messages {
+  position: relative;
+  z-index: 1;
   flex: 1;
   overflow-y: auto;
   padding: 28px 24px 14px;
@@ -753,27 +926,12 @@ nav a:hover { color: #fff; }
 .chat-message.user {
   justify-content: flex-end;
 }
-.message-avatar {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  flex: 0 0 28px;
-  overflow: hidden;
-  background: #181819;
-  color: #fff;
-  border-radius: 9px;
-  font-size: 9px;
-  font-weight: 900;
-}
-.message-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .message-content {
-  max-width: 76%;
+  max-width: 82%;
 }
+.chat-message.is-grouped { margin-top: -12px; }
+.chat-message.is-grouped .message-bubble { border-radius: 17px; }
+.chat-message.user.is-grouped .message-bubble { border-radius: 17px; }
 .message-author {
   display: block;
   margin: 0 0 6px 3px;
@@ -2224,7 +2382,7 @@ footer p { margin: 0; color: #777; font-size: 13px; }
 
 .lab-stage {
   position: relative;
-  padding: 14px;
+  padding: 8px;
   border: 1px solid rgba(255,255,255,.09);
   border-radius: 34px;
   background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
@@ -2254,6 +2412,13 @@ footer p { margin: 0; color: #777; font-size: 13px; }
   .capability-row li::after { margin: 0 18px; }
   .capability-row { padding-left: 18px; }
   .lab-section { padding: 64px 14px 74px; }
+  .acordito-block { align-items: center; margin-bottom: 24px; }
+  .acordito-stage { width: 176px; height: 176px; margin-left: 0; }
+  .acordito-video { width: 166px; height: 166px; }
+  .acordito-glow { width: 108px; height: 108px; filter: blur(52px); }
+  .acordito-status { margin: -16px 0 0; }
+  .chat-ghost-lines { width: 156px; }
+  .chat-window { height: 560px; }
   .lab-stage { padding: 8px; border-radius: 24px; }
   .lab-stage .voice-lab, .lab-stage .chat-lab { border-radius: 18px; }
 }
@@ -3191,13 +3356,9 @@ footer p { margin: 0; color: #777; font-size: 13px; }
 }
 
 /* Acordito: respiro leve, atenção quando está pensando. */
-.chat-avatar img,
-.chat-copy-status img {
-  animation: acordito-float 5s ease-in-out infinite;
-}
+.chat-avatar img { animation: acordito-float 5s ease-in-out infinite; }
 .chat-window.is-thinking .chat-avatar img { animation: acordito-think .9s ease-in-out infinite; }
 .chat-window.is-thinking .chat-avatar::after { animation: acordito-ring 1.4s ease-out infinite; }
-.chat-message.assistant .message-avatar img { animation: acordito-pop .5s cubic-bezier(.2, .7, .3, 1) both; }
 @keyframes acordito-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-3px) rotate(-2deg); }
@@ -3233,10 +3394,12 @@ footer p { margin: 0; color: #777; font-size: 13px; }
   .product-card.active .product-visual { transform: rotate(var(--tilt)); }
   .agent-states li.is-active i,
   .chat-avatar img,
-  .chat-copy-status img,
+  .acordito-video,
+  .acordito-status span,
+  .chat-ghost-lines i,
+  .chat-message.loading .message-bubble i,
   .chat-window.is-thinking .chat-avatar img,
-  .chat-window.is-thinking .chat-avatar::after,
-  .chat-message.assistant .message-avatar img { animation: none; }
+  .chat-window.is-thinking .chat-avatar::after { animation: none; }
   .message p.is-typing::after { display: none; }
 }
 

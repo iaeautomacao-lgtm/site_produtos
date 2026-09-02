@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20260901m">
+  <link rel="stylesheet" href="./styles.css?v=20260901p">
 </head>
 <body>
   <div class="scroll-glow" aria-hidden="true"></div>
@@ -223,12 +223,19 @@
         <div class="lab-panel" id="panel-chat">
           <div class="chat-lab">
             <div class="chat-copy">
-              <div class="chat-copy-status">
-                <img src="./assets/acordito.png" alt="Acordito">
-                <span class="live-pill"><i></i> chat preparado</span>
+              <div class="acordito-block" id="acorditoStage" data-state="idle">
+                <div class="acordito-stage">
+                  <div class="acordito-glow" aria-hidden="true"></div>
+                  <video class="acordito-video" id="acorditoVideo" muted loop playsinline preload="metadata" aria-hidden="true">
+                    <source src="./assets/acordito.webm" type="video/webm">
+                    <source src="./assets/acordito-fallback.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="acordito-status" id="acorditoStatus" role="status" aria-live="polite"><span></span>PRONTO PARA CONVERSAR</div>
               </div>
-              <h3>Chat com IA para atendimento e relacionamento.</h3>
-              <p>Use o chat para visualizar como um agente DDM pode orientar atendimento, relacionamento e triagem.</p>
+              <span class="chat-eyebrow">CHAT AO VIVO</span>
+              <h3>Converse com o Acordito.</h3>
+              <p>Experimente como nossos agentes conduzem atendimento, qualificação e relacionamento em tempo real.</p>
             </div>
             <div class="chat-window">
               <div class="chat-header">
@@ -236,18 +243,31 @@
                   <div class="chat-avatar">
                     <img src="./assets/acordito.png" alt="Acordito">
                   </div>
-                  <div class="chat-agent-info"><strong>Assistente DDM</strong><span>Demonstração interativa</span></div>
+                  <div class="chat-agent-info"><strong>Acordito</strong><span>Assistente DDM</span></div>
                 </div>
                 <div class="chat-live">ONLINE</div>
               </div>
-              <div class="chat-messages" id="chatMessages">
-                <div class="chat-message assistant">
-                  <div class="message-avatar">
-                    <img src="./assets/acordito.png" alt="">
+              <div class="chat-body" id="chatBody">
+                <div class="chat-ghost" aria-hidden="true">
+                  <span class="chat-ghost-glow"></span>
+                  <span class="chat-ghost-label">Conversa em andamento</span>
+                  <span class="chat-ghost-lines">
+                    <i style="--w: 58%"></i>
+                    <i style="--w: 88%"></i>
+                    <i style="--w: 44%"></i>
+                  </span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                  <div class="chat-message assistant">
+                    <div class="message-content">
+                      <span class="message-author">ACORDITO</span>
+                      <div class="message-bubble">Olá. Sou o Acordito, assistente de IA da DDM.</div>
+                    </div>
                   </div>
-                  <div class="message-content">
-                    <span class="message-author">ASSISTENTE DDM</span>
-                    <div class="message-bubble">Olá. Sou o assistente virtual da DDM. Posso demonstrar como nossas soluções de IA atuam em voz, atendimento, cobrança e automação.</div>
+                  <div class="chat-message assistant is-grouped">
+                    <div class="message-content">
+                      <div class="message-bubble">Posso demonstrar voz, atendimento, cobrança e automação. Por onde quer começar?</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -264,7 +284,7 @@
                 <input aria-label="Mensagem" placeholder="Digite uma pergunta...">
                 <button class="chat-send" type="submit" aria-label="Enviar">→</button>
               </form>
-              <div class="chat-foot-status"><i></i> Demonstração ao vivo · Assistente DDM</div>
+              <div class="chat-foot-status"><i></i> Demonstração ao vivo · Acordito</div>
             </div>
           </div>
         </div>
@@ -502,7 +522,7 @@
     <p>DDM AI Hub - produtos de IA, automação e inteligência operacional.</p>
   </footer>
 
-  <script src="./interactions.js?v=20260901m"></script>
-  <script src="./app.js?v=20260901m"></script>
+  <script src="./interactions.js?v=20260901p"></script>
+  <script src="./app.js?v=20260901p"></script>
 </body>
 </html>

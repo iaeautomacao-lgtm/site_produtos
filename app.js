@@ -2,9 +2,9 @@ const CONFIG = {
   vapi: {
     publicKey: "db5278ba-8878-43c9-8d14-be57efe66227",
     assistants: {
-      cobranca: "4e980169-7e8b-44e4-bf08-edc6699b5c30",
-      qualificacao: "4e980169-7e8b-44e4-bf08-edc6699b5c30",
-      atendimento: "4e980169-7e8b-44e4-bf08-edc6699b5c30"
+      cobranca: "93f19be7-eae6-458f-bcc8-d488fc4b183c",
+      qualificacao: "c578cc71-9d04-4b21-ac59-fb8cb5262f5a",
+      atendimento: "1c762672-d8e2-4f12-888d-64fc6e1dbe48"
     }
   },
   sdkUrl: "https://esm.sh/@vapi-ai/web"
@@ -376,6 +376,17 @@ $$(".tab").forEach((tab) => {
     $$(".lab-panel").forEach((panel) => {
       panel.classList.toggle("active", panel.id === `panel-${tab.dataset.panel}`);
     });
+
+    // O vídeo só começa quando a aba fica visível: painel oculto bloqueia o autoplay.
+    const video = $("#acorditoVideo");
+    if (!video) return;
+    if (tab.dataset.panel === "chat") {
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        video.play().catch(() => {});
+      }
+    } else {
+      video.pause();
+    }
   });
 });
 
@@ -407,32 +418,90 @@ $("#callButton").addEventListener("click", async () => {
   startSimulation();
 });
 
+const ACORDITO_STATES = {
+  idle: "PRONTO PARA CONVERSAR",
+  thinking: "ACORDITO ESTÁ PENSANDO...",
+  responding: "ACORDITO ESTÁ RESPONDENDO"
+};
+
+function setAcorditoState(state) {
+  const stage = $("#acorditoStage");
+  const label = $("#acorditoStatus");
+  if (!stage || !label) return;
+
+  stage.dataset.state = state;
+  label.innerHTML = "<span></span>";
+  label.append(ACORDITO_STATES[state] || ACORDITO_STATES.idle);
+
+  // Idle mais lento pra leitura calma; acelera quando esta pensando.
+  const video = $("#acorditoVideo");
+  if (video) video.playbackRate = state === "thinking" ? 1.5 : 0.65;
+}
+
+// Bolha sem autor quando o Acordito emenda a fala anterior.
 function addChatMessage(role, text, extraClass = "") {
   const messages = $("#chatMessages");
   if (!messages) return null;
 
-  const message = document.createElement("div");
   const isUser = role === "user";
-  message.className = `chat-message ${isUser ? "user" : "assistant"} ${extraClass}`.trim();
-  message.innerHTML = isUser ? `
+  const previous = messages.lastElementChild;
+  const grouped = !isUser && previous?.classList.contains("assistant") && !previous.classList.contains("loading");
+
+  const message = document.createElement("div");
+  message.className = [
+    "chat-message",
+    isUser ? "user" : "assistant",
+    grouped ? "is-grouped" : "",
+    extraClass
+  ].filter(Boolean).join(" ");
+
+  const author = isUser ? "VOCÊ" : "ACORDITO";
+  message.innerHTML = `
     <div class="message-content">
-      <span class="message-author">VOCÊ</span>
-      <div class="message-bubble"></div>
-    </div>
-  ` : `
-    <div class="message-avatar">
-      <img src="./assets/acordito.png" alt="">
-    </div>
-    <div class="message-content">
-      <span class="message-author">ASSISTENTE DDM</span>
+      ${grouped ? "" : `<span class="message-author">${author}</span>`}
       <div class="message-bubble"></div>
     </div>
   `;
   message.querySelector(".message-bubble").textContent = text;
   messages.appendChild(message);
   messages.scrollTop = messages.scrollHeight;
+  updateChatGhost();
   return message;
 }
+
+// A marca d'agua do painel some assim que a conversa passa das falas de abertura.
+function updateChatGhost() {
+  const body = $("#chatBody");
+  const messages = $("#chatMessages");
+  if (!body || !messages) return;
+  body.classList.toggle("has-conversation", messages.children.length > 2);
+}
+
+// Resposta longa vira 2-3 bolhas curtas: parágrafo primeiro, frase como plano B.
+function splitReply(text) {
+  const clean = String(text).trim();
+  let parts = clean.split(/\n{2,}/).map((part) => part.trim()).filter(Boolean);
+
+  if (parts.length < 2) {
+    const sentences = clean.split(/(?<=[.!?])\s+/).filter(Boolean);
+    if (sentences.length > 2) {
+      const size = Math.ceil(sentences.length / Math.min(3, Math.ceil(sentences.length / 2)));
+      parts = [];
+      for (let i = 0; i < sentences.length; i += size) {
+        parts.push(sentences.slice(i, i + size).join(" "));
+      }
+    } else {
+      parts = [clean];
+    }
+  }
+
+  if (parts.length > 3) {
+    parts = [parts[0], parts[1], parts.slice(2).join(" ")];
+  }
+  return parts;
+}
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function sendChatMessage(text) {
   const form = $("#chatForm");
@@ -444,8 +513,10 @@ async function sendChatMessage(text) {
   input.disabled = true;
   submit.disabled = true;
 
-  const loading = addChatMessage("model", "Assistente DDM está analisando...", "loading");
+  const loading = addChatMessage("model", "", "loading");
+  loading.querySelector(".message-bubble").innerHTML = "<i></i><i></i><i></i>";
   $(".chat-window")?.classList.add("is-thinking");
+  setAcorditoState("thinking");
 
   try {
     const response = await fetch("./chat.php", {
@@ -463,17 +534,25 @@ async function sendChatMessage(text) {
       throw new Error(data.error || "Não foi possível responder agora.");
     }
 
-    loading.querySelector(".message-bubble").textContent = data.reply;
-    loading.classList.remove("loading");
+    loading.remove();
+    $(".chat-window")?.classList.remove("is-thinking");
+    setAcorditoState("responding");
+
+    const parts = splitReply(data.reply);
+    for (let i = 0; i < parts.length; i += 1) {
+      if (i > 0) await wait(520);
+      addChatMessage("model", parts[i]);
+    }
+
     chatHistory.push({ role: "user", text });
     chatHistory.push({ role: "model", text: data.reply });
     chatHistory = chatHistory.slice(-10);
   } catch (error) {
-    loading.querySelector(".message-bubble").textContent = error.message || "Não foi possível conectar ao assistente agora.";
-    loading.classList.remove("loading");
-    loading.classList.add("error");
+    loading.remove();
+    addChatMessage("model", error.message || "Não foi possível conectar ao assistente agora.", "error");
   } finally {
     $(".chat-window")?.classList.remove("is-thinking");
+    setAcorditoState("idle");
     input.disabled = false;
     submit.disabled = false;
     input.focus();
