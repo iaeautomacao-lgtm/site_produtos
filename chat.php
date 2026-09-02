@@ -80,7 +80,11 @@ $requestBody = [
     'generationConfig' => [
         'temperature' => 0.55,
         'topP' => 0.9,
-        'maxOutputTokens' => 220,
+        'maxOutputTokens' => 400,
+        // O gemini-2.5-flash raciocina por padrao e os tokens de raciocinio saem
+        // do mesmo orcamento do maxOutputTokens. Sem zerar isso a resposta chega
+        // cortada no meio da frase.
+        'thinkingConfig' => ['thinkingBudget' => 0],
     ],
 ];
 
@@ -109,7 +113,30 @@ if ($response === false || $curlError) {
 }
 
 $data = json_decode($response, true);
-$text = trim((string)($data['candidates'][0]['content']['parts'][0]['text'] ?? ''));
+
+// A resposta pode vir em varias parts; as marcadas como thought nao sao texto pro usuario.
+$chunks = [];
+foreach (($data['candidates'][0]['content']['parts'] ?? []) as $part) {
+    if (!is_array($part) || !empty($part['thought'])) {
+        continue;
+    }
+    $chunks[] = (string)($part['text'] ?? '');
+}
+$text = trim(implode('', $chunks));
+
+// Se ainda assim bateu no teto, corta na ultima frase inteira em vez de no meio da palavra.
+if (($data['candidates'][0]['finishReason'] ?? '') === 'MAX_TOKENS' && $text !== '') {
+    $cut = -1;
+    foreach (['.', '!', '?'] as $mark) {
+        $pos = strrpos($text, $mark);
+        if ($pos !== false && $pos > $cut) {
+            $cut = $pos;
+        }
+    }
+    if ($cut > 40) {
+        $text = substr($text, 0, $cut + 1);
+    }
+}
 
 if ($status >= 400 || $text === '') {
     http_response_code(502);
