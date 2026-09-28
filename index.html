@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20260928a">
+  <link rel="stylesheet" href="./styles.css?v=20260928b">
 </head>
 <body>
   <div class="scroll-glow" aria-hidden="true"></div>
@@ -311,7 +311,7 @@
           <button class="product-filter" type="button" data-filter="dados" aria-pressed="false">Dados</button>
           <button class="product-filter" type="button" data-filter="comercial" aria-pressed="false">Comercial</button>
         </div>
-        <p class="product-filter-count" id="productCount" role="status" aria-live="polite">11 soluções</p>
+        <p class="product-filter-count" id="productCount" role="status" aria-live="polite">12 soluções</p>
       </div>
 
       <div class="product-grid product-grid--links" id="productGrid">
@@ -395,11 +395,21 @@
           <em class="product-benefit">Todos os agentes sob um mesmo acesso</em>
           <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
         </a>
+        <a data-tilt="7" class="product-card" href="./produto-meeting.html" data-categories="automacao dados atendimento" style="--glow: 80% 18%">
+          <div class="product-visual image-preview meeting-screen" aria-hidden="true">
+            <img src="./assets/MEETING.png" alt="">
+          </div>
+          <span class="product-kicker">09 / Reuniões · inteligência operacional</span>
+          <h3>Meeting IA</h3>
+          <p>Robô com IA que participa de reuniões no Teams, Meet ou Zoom, transcreve, resume e gera insights estratégicos.</p>
+          <em class="product-benefit">Da reunião ao plano de ação, sem perder informação</em>
+          <span class="product-go">Ver produto <i aria-hidden="true">↗</i></span>
+        </a>
         <a data-tilt="7" class="product-card product-card--wide product-card--spotlight" href="./produto-whatsapp.html" data-categories="voz comercial" style="--glow: 74% 68%">
           <div class="product-visual image-preview whatsapp-screen" aria-hidden="true">
             <img src="./assets/DDM CALL IA WHATSAPP.png" alt="">
           </div>
-          <span class="product-kicker">09 / Voz em escala</span>
+          <span class="product-kicker">10 / Voz em escala</span>
           <h3>Call IA WhatsApp</h3>
           <p class="product-lead-line">Milhares de conversas. Uma operação.</p>
           <p>Agente de voz com IA para chamadas via WhatsApp em escala, com personalização, campanhas e acompanhamento operacional.</p>
@@ -410,7 +420,7 @@
           <div class="product-visual image-preview reminder-screen" aria-hidden="true">
             <img src="./assets/agente de lembrete - capa.jpeg" alt="">
           </div>
-          <span class="product-kicker">10 / Voz e recuperação</span>
+          <span class="product-kicker">11 / Voz e recuperação</span>
           <h3>Agente de Lembretes</h3>
           <p class="product-lead-line">Ligação preventiva + SMS de pagamento.</p>
           <p>Agente de voz com IA para lembretes de pagamento, com disparo de SMS contendo aviso, linha digitável do boleto ou Pix.</p>
@@ -421,7 +431,7 @@
           <div class="product-visual image-preview dialog-screen" aria-hidden="true">
             <img src="./assets/DIALOG.jpeg" alt="">
           </div>
-          <span class="product-kicker">11 / Voz · discagem inteligente</span>
+          <span class="product-kicker">12 / Voz · discagem inteligente</span>
           <h3>Dialog</h3>
           <p class="product-lead-line">Discagem ativa com conversa, contexto e conformidade.</p>
           <p>Plataforma de telefonia inteligente com agentes de voz IA para cobrança, vendas e atendimento ativo em escala.</p>
@@ -469,6 +479,7 @@
               <label><input type="checkbox" name="interesse[]" value="DDM Agente de Lembretes"><span>Agente de Lembretes</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM CRM"><span>Omni CRM</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM Mail IA"><span>Mail IA</span></label>
+              <label><input type="checkbox" name="interesse[]" value="Meeting IA"><span>Meeting IA</span></label>
               <label><input type="checkbox" name="interesse[]" value="QualiDDM"><span>QualiDDM</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM Creator"><span>Creator</span></label>
               <label><input type="checkbox" name="interesse[]" value="DDM Dashboard Creator"><span>Dashboard Creator</span></label>
@@ -535,6 +546,6 @@
   </footer>
 
   <script src="./interactions.js?v=20260901p"></script>
-  <script src="./app.js?v=20260928a"></script>
+  <script src="./app.js?v=20260928b"></script>
 </body>
 </html>

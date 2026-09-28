@@ -1369,7 +1369,7 @@ nav a:hover { color: #fff; }
   object-fit: cover;
   object-position: left top;
 }
-.dashboard-screen, .crm-screen, .labs-screen { --tilt: -1.5deg; }
+.dashboard-screen, .crm-screen, .labs-screen, .meeting-screen { --tilt: -1.5deg; }
 .creator-screen, .mail-screen { --tilt: .75deg; }
 .lead-screen, .whatsapp-screen, .dialog-screen { --tilt: -.75deg; }
 .callia-preview { --tilt: -1deg; }
@@ -3673,6 +3673,7 @@ footer p { margin: 0; color: #777; font-size: 13px; }
 .reminder-screen { --tilt: -.75deg; }
 .reminder-screen img { object-position: center; }
 .dialog-screen img { object-position: center; }
+.meeting-screen img { object-position: center; }
 
 @media (max-width: 980px) {
   .sc--negotiation { grid-template-columns: 1fr; gap: 26px; }

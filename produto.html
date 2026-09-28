@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Redirecionando | Grupo DDM</title>
-  <link rel="stylesheet" href="./styles.css?v=20260928a">
+  <link rel="stylesheet" href="./styles.css?v=20260928b">
 </head>
 <!-- Compatibilidade: cada produto agora tem a própria página estática
      (produto-<slug>.html). Links antigos no formato produto.html?produto=<slug>
@@ -28,6 +28,7 @@
       <li><a href="./produto-leads.html">Extrator de Leads</a></li>
       <li><a href="./produto-crm.html">Omni CRM</a></li>
       <li><a href="./produto-mail.html">Mail IA</a></li>
+      <li><a href="./produto-meeting.html">Meeting IA</a></li>
       <li><a href="./produto-labs.html">DDM Labs</a></li>
     </ul>
     <a class="button primary" href="./index.html#produtos">Ver todos os produtos ↗</a>
@@ -37,7 +38,7 @@
     (function () {
       var slugs = [
         "callia", "dialog", "whatsapp", "lembretes", "qualiddm", "creator",
-        "dashboard", "leads", "crm", "mail", "labs"
+        "dashboard", "leads", "crm", "mail", "meeting", "labs"
       ];
       var requested = new URLSearchParams(window.location.search).get("produto");
       var target = slugs.indexOf(requested) === -1 ? "callia" : requested;

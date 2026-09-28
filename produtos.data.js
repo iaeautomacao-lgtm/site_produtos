@@ -458,6 +458,53 @@
       ctaTitle: "Quer automatizar o e-mail do seu backoffice?"
     },
 
+    meeting: {
+      slug: "meeting",
+      tag: "REUNIÕES · INTELIGÊNCIA OPERACIONAL",
+      title: "Meeting IA",
+      headline: ["Reuniões registradas,", "resumidas e acionáveis."],
+      lead: "Reuniões registradas, resumidas e transformadas em inteligência para a operação.",
+      metaDescription:
+        "Meeting IA: robô com IA para Teams, Google Meet e Zoom que transcreve reuniões, gera resumos, insights e planos de ação.",
+      image: "./assets/MEETING.png",
+      primaryCta: { label: "Solicitar demonstração", href: "./index.html#contato" },
+      solvesTitle: "Da reunião ao plano de ação, sem perder informação.",
+      solves: [
+        ["01", "Registro automático de reuniões", "Participa das reuniões no Teams, Meet ou Zoom e gera transcrição organizada do que foi discutido."],
+        ["02", "Resumos e próximos passos", "Cria atas inteligentes com decisões, responsáveis, tarefas, pendências e pontos de atenção."],
+        ["03", "Inteligência por setor", "Centraliza reuniões de diferentes áreas em um hub consultável, permitindo acompanhar temas, prioridades e riscos da operação."]
+      ],
+      showcase: {
+        type: "modules",
+        kicker: "VEJA A IA TRABALHANDO",
+        title: "Um hub vivo sobre o que acontece nas reuniões.",
+        note: "Módulos ilustrativos de uma operação acompanhando reuniões, decisões e pendências por área.",
+        modules: [
+          ["Robô participante", "Entrada em Teams, Google Meet e Zoom"],
+          ["Transcrição", "Registro automático da conversa"],
+          ["Resumo executivo", "Principais pontos organizados por IA"],
+          ["Insights estratégicos", "Riscos, oportunidades e temas recorrentes"],
+          ["Decisões e tarefas", "Responsáveis, prazos e próximos passos"],
+          ["Chat da reunião", "Perguntas sobre cada conversa"],
+          ["Hub por setor", "Reuniões por área, projeto ou time"],
+          ["Histórico consultável", "Alinhamentos e decisões recuperáveis"],
+          ["Visão gerencial", "O que acontece na empresa em tempo real"]
+        ]
+      },
+      flow: ["Reunião", "Transcrição", "Resumo", "Insight", "Ação"],
+      panelTitle: "O hub das reuniões corporativas.",
+      panelText:
+        "Um robô acompanha reuniões no Teams, Google Meet ou Zoom, transforma conversas em registros consultáveis e organiza decisões, riscos, oportunidades, responsáveis e próximos passos por setor, projeto ou área.",
+      panelCaptions: [
+        "Transcrições e resumos executivos por reunião",
+        "Chat com IA para recuperar informações rapidamente",
+        "Visão gerencial de decisões, pendências e riscos"
+      ],
+      fit: "Gestão · Projetos · Operação · Liderança",
+      interest: "Meeting IA",
+      ctaTitle: "Quer transformar reuniões em inteligência para a gestão?"
+    },
+
     labs: {
       slug: "labs",
       tag: "HUB CORPORATIVO DE IA",
@@ -514,6 +561,7 @@
     "leads",
     "crm",
     "mail",
+    "meeting",
     "labs"
   ];
 
