@@ -16,7 +16,7 @@ const sandbox = {};
 new Function("globalThis", "module", `${dataSource}`).call(sandbox, sandbox, undefined);
 const { DDM_PRODUCTS: products, DDM_PRODUCT_ORDER: order } = sandbox;
 
-const ASSET_VERSION = "20260901m";
+const ASSET_VERSION = "20260928a";
 
 const esc = (value) =>
   String(value)

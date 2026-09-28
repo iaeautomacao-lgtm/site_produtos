@@ -52,6 +52,51 @@
       ctaTitle: "Quer colocar agentes de voz na sua operação?"
     },
 
+    dialog: {
+      slug: "dialog",
+      tag: "VOZ · DISCAGEM INTELIGENTE",
+      title: "Dialog",
+      headline: ["Telefonia inteligente", "para contato ativo em escala."],
+      lead: "Telefonia inteligente para operações que precisam falar com mais clientes, com mais contexto e menos custo.",
+      metaDescription:
+        "Dialog: plataforma de telefonia inteligente com agentes de voz IA para cobrança, vendas e atendimento ativo em escala.",
+      image: "./assets/DIALOG.jpeg",
+      primaryCta: { label: "Solicitar demonstração", href: "./index.html#contato" },
+      solvesTitle: "Discagem ativa com conversa, contexto e conformidade.",
+      solves: [
+        ["01", "Cobrança ativa", "Conduz negociações, confirma dados, apresenta condições e registra acordos diretamente na operação."],
+        ["02", "Vendas e qualificação", "Aborda leads em escala, identifica interesse, qualifica oportunidades e direciona os melhores contatos para o time comercial."],
+        ["03", "Atendimento em escala", "Realiza contatos ativos e receptivos com conversas fluidas, sem depender de menus rígidos ou filas longas."]
+      ],
+      showcase: {
+        type: "campaign",
+        kicker: "VEJA A IA TRABALHANDO",
+        title: "Uma campanha ativa com IA, regras e acompanhamento.",
+        note: "Simulação de uma operação de discagem ativa com agentes de voz IA, controle de elegibilidade, transbordo humano e registro de desfecho.",
+        lines: [
+          "Mailing 01",
+          "Mailing 02",
+          "Lead 03",
+          "Cliente 04",
+          "Cliente 05",
+          "Lead 06"
+        ],
+        states: ["Elegível", "Chamando", "Em conversa", "Transbordado", "Concluído"]
+      },
+      flow: ["Mailing", "Discagem", "Conversa", "Regra", "Desfecho"],
+      panelTitle: "Telefonia ativa com inteligência operacional.",
+      panelText:
+        "Importação inteligente de mailings, monitoramento de campanhas em tempo real, consulta a CRM ou ERP, transbordo para operadores humanos e regras de conformidade para ampliar contatos efetivos com controle.",
+      panelCaptions: [
+        "Controle de campanhas, filas e mailings",
+        "Consulta e validação de dados no CRM ou ERP",
+        "Desfechos, transbordos e conversões em tempo real"
+      ],
+      fit: "Cobrança · Vendas · Atendimento ativo · Operações de voz",
+      interest: "Dialog",
+      ctaTitle: "Quer transformar sua operação de voz em uma operação inteligente?"
+    },
+
     whatsapp: {
       slug: "whatsapp",
       tag: "VOZ EM ESCALA",
@@ -460,6 +505,7 @@
 
   const order = [
     "callia",
+    "dialog",
     "whatsapp",
     "lembretes",
     "qualiddm",

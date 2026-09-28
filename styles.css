@@ -1371,7 +1371,7 @@ nav a:hover { color: #fff; }
 }
 .dashboard-screen, .crm-screen, .labs-screen { --tilt: -1.5deg; }
 .creator-screen, .mail-screen { --tilt: .75deg; }
-.lead-screen, .whatsapp-screen { --tilt: -.75deg; }
+.lead-screen, .whatsapp-screen, .dialog-screen { --tilt: -.75deg; }
 .callia-preview { --tilt: -1deg; }
 .product-card--wide .product-visual {
   --lift: -18px;
@@ -3672,6 +3672,7 @@ footer p { margin: 0; color: #777; font-size: 13px; }
 /* A capa do Agente de Lembretes é foto, não captura de tela. */
 .reminder-screen { --tilt: -.75deg; }
 .reminder-screen img { object-position: center; }
+.dialog-screen img { object-position: center; }
 
 @media (max-width: 980px) {
   .sc--negotiation { grid-template-columns: 1fr; gap: 26px; }
