@@ -2168,12 +2168,10 @@ footer p { margin: 0; color: #777; font-size: 13px; }
   .product-hero-grid,
   .detail-section-head,
   .detail-flow-section,
-  .benefit-grid,
-  .screen-grid {
+  .benefit-grid {
     grid-template-columns: 1fr;
   }
   .product-hero-grid { gap: 48px; }
-  .screen-grid img:first-child { grid-row: auto; min-height: 360px; }
 }
 
 @media (max-width: 640px) {

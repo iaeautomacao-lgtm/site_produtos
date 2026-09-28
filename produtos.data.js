@@ -102,17 +102,17 @@
       tag: "VOZ · RECUPERAÇÃO DE CRÉDITO",
       title: "Agente de Lembretes",
       headline: ["Lembrar, negociar e confirmar —", "em cada linha da base."],
-      lead: "Agente de voz com IA para cobrança preventiva e recuperação de crédito: conduz a negociação, confirma a previsão de pagamento, agenda retorno e dispara o comprovante na sequência.",
+      lead: "Agente de voz com IA para cobrança preventiva e recuperação de crédito: realiza a ligação, confirma a previsão de pagamento e dispara SMS com aviso de pagamento, linha digitável do boleto ou Pix.",
       metaDescription:
-        "Agente de Lembretes: IA de voz para cobrança preventiva e recuperação de crédito, com negociação, confirmação de pagamento, disparo de comprovante e painel de conversão em tempo real.",
+        "Agente de Lembretes: IA de voz para cobrança preventiva e recuperação de crédito, com aviso por SMS, linha digitável de boleto ou Pix e painel de conversão em tempo real.",
       image: "./assets/agente de lembrete.png",
       cover: "./assets/agente de lembrete - capa.jpeg",
       primaryCta: { label: "Solicitar demonstração", href: "./index.html#contato" },
       solvesTitle: "Da régua de cobrança ao acordo confirmado.",
       solves: [
-        ["01", "Negociação e acordo", "Apresenta o débito, calcula opções de desconto, confirma a data de pagamento e direciona o envio da linha digitável ou chave Pix."],
+        ["01", "Ligação preventiva", "Entra em contato antes do vencimento ou na régua de cobrança, reforçando prazo, valor e próximo passo para pagamento."],
         ["02", "Painel de recuperação", "Volume de chamadas, contato com a pessoa certa (CPC), acordos formalizados, não atendimento e status das campanhas em tempo real."],
-        ["03", "Multicanal e comprovantes", "SMS com link de pagamento logo após a chamada e integração por API/Webhook para atualizar ERP, CRM ou sistema financeiro."]
+        ["03", "SMS com boleto ou Pix", "Dispara SMS com aviso de pagamento e dados como linha digitável do boleto, chave Pix ou link definido pela operação."]
       ],
       showcase: {
         type: "negotiation",
@@ -123,7 +123,7 @@
           ["01", "Apresenta o débito", "Identifica-se, confirma a pessoa certa e expõe o valor em aberto."],
           ["02", "Calcula a condição", "Aplica a régua de desconto autorizada para a faixa de atraso."],
           ["03", "Confirma a data", "Registra a previsão de pagamento e agenda retorno se necessário."],
-          ["04", "Dispara o comprovante", "Envia linha digitável ou Pix por SMS e atualiza o sistema financeiro."]
+          ["04", "Dispara o SMS", "Envia aviso de pagamento com linha digitável do boleto ou Pix e atualiza o sistema financeiro."]
         ],
         readout: [
           ["Base", "Lote por faixa de atraso"],
@@ -132,10 +132,10 @@
           ["Retorno", "Webhook para o ERP"]
         ]
       },
-      flow: ["Base", "Chamada", "Negociação", "Comprovante", "Integração"],
+      flow: ["Base", "Chamada", "Lembrete", "SMS", "Integração"],
       panelTitle: "O painel da recuperação.",
       panelText:
-        "Campanhas, leads carregados, ligações com IA e SMS enviados em um só lugar, com o andamento de cada lote e o resultado de contato linha a linha.",
+        "Campanhas, leads carregados, ligações com IA e SMS enviados em um só lugar, com o andamento de cada lote, aviso de pagamento e resultado de contato linha a linha.",
       panelCaptions: [
         "Campanhas ativas e progresso por lote",
         "Ligações atendidas, não atendidas e SMS",
